@@ -1,14 +1,21 @@
+@font-face {
+    font-family: 'GmarketSansMedium';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
 #container_A{
     margin: 0;
 }
 header{
     width: 100%;
-    background-color: antiquewhite;
+    /*background-color: antiquewhite;*/
     /*position: fixed;*/
 	top: 0;
 	/* width: 100% */
 	left: 0;
 	right: 0;
+	box-shadow: 0 0 4px black;
 }
 .header{
     display: inline;
@@ -27,7 +34,9 @@ header{
     text-decoration:none;
 }
 #kategorie>ul>li>a{
+	font-family: 'GmarketSansMedium';
     text-decoration: none;
+    color:#082032;
 }
 
 
@@ -63,3 +72,4 @@ background-color: transparent;
 .dropdown-content a:hover {background-color: #f1f1f1}
 
 .show {display:block;}
+
