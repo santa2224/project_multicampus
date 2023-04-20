@@ -10,4 +10,8 @@
 	<select id="idCheckCount" resultType="int">
 		select count(id) cnt from common where id=#{param1}
 	</select>
+	<insert id="loginInsert">
+		insert into register(id, password, name, nickname, email, phone_num, member_type)
+		values(#{id}, #{password}, #{name}, #{nickname}, #{email}, #{phone_num}, #{member_type})
+	</insert>
 </mapper>

@@ -24,4 +24,9 @@ public class LoginServiceImpl implements  LoginService {
 	public int idCheckCount(String id) {
 		return dao.idCheckCount(id);
 	}
+
+	@Override
+	public int loginInsert(LoginDTO dto) {
+		return dao.loginInsert(dto);
+	}
 }

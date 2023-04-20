@@ -7,4 +7,7 @@ public interface LoginService{
 	
 	//아이디 중복검사
 	public int idCheckCount(String id);
+	
+	//회원가입
+	public int loginInsert(LoginDTO dto);
 }

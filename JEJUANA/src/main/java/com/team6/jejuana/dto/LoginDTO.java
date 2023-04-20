@@ -6,23 +6,19 @@ public class LoginDTO {
 	private String name;
 	private String nickname;
 	private String email;
-	private String addr;
-	private String profile_img;
-	private String profile_text;
+	private String email1;
+	private String email2;
 	private String sign_date;
-	private int blocked;
-	private int claim_count;
-	private int age;
-	private int gender;
+	private String member_type;
+	
+	
 	
 	@Override
 	public String toString() {
-		return "RegisterDTO [id=" + id + ", password=" + password + ", name=" + name + ", nickname=" + nickname
-				+ ", email=" + email + ", addr=" + addr + ", profile_img=" + profile_img + ", profile_text="
-				+ profile_text + ", sign_date=" + sign_date + ", blocked=" + blocked + ", claim_count=" + claim_count
-				+ ", age=" + age + ", gender=" + gender + "]";
+		return "LoginDTO [id=" + id + ", password=" + password + ", name=" + name + ", nickname=" + nickname
+				+ ", email=" + email1 + ", email2=" + email2 + ", sign_date=" + sign_date + ", member_type="
+				+ member_type + "]";
 	}
-	
 	public String getId() {
 		return id;
 	}
@@ -47,59 +43,42 @@ public class LoginDTO {
 	public void setNickname(String nickname) {
 		this.nickname = nickname;
 	}
+	//--------------------------------------------
 	public String getEmail() {
+		email = email1+"@"+email2;
 		return email;
 	}
 	public void setEmail(String email) {
 		this.email = email;
+		
+		String emailCut[] = email.split("@");
+		email1 = emailCut[0];
+		email2 = emailCut[1];
 	}
-	public String getAddr() {
-		return addr;
+	public String getEmail1() {
+		return email1;
 	}
-	public void setAddr(String addr) {
-		this.addr = addr;
+	public void setEmail1(String email1) {
+		this.email1 = email1;
 	}
-	public String getProfile_img() {
-		return profile_img;
+	public String getEmail2() {
+		return email2;
 	}
-	public void setProfile_img(String profile_img) {
-		this.profile_img = profile_img;
+	public void setEmail2(String email2) {
+		this.email2 = email2;
 	}
-	public String getProfile_text() {
-		return profile_text;
-	}
-	public void setProfile_text(String profile_text) {
-		this.profile_text = profile_text;
-	}
+	//--------------------------------------------
 	public String getSign_date() {
 		return sign_date;
 	}
 	public void setSign_date(String sign_date) {
 		this.sign_date = sign_date;
 	}
-	public int getBlocked() {
-		return blocked;
+	public String getMember_type() {
+		return member_type;
 	}
-	public void setBlocked(int blocked) {
-		this.blocked = blocked;
-	}
-	public int getClaim_count() {
-		return claim_count;
-	}
-	public void setClaim_count(int claim_count) {
-		this.claim_count = claim_count;
-	}
-	public int getAge() {
-		return age;
-	}
-	public void setAge(int age) {
-		this.age = age;
-	}
-	public int getGender() {
-		return gender;
-	}
-	public void setGender(int gender) {
-		this.gender = gender;
+	public void setMember_type(String member_type) {
+		this.member_type = member_type;
 	}
 	
 }

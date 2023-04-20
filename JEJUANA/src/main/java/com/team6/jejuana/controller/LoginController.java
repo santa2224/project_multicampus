@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.team6.jejuana.dto.LoginDTO;
@@ -71,5 +72,21 @@ public class LoginController {
 		model.addAttribute("result", result);
 		
 		return "login/idCheck";
+	}
+	
+	//회원가입
+	@RequestMapping(value="/joinOk", method=RequestMethod.POST)
+	public ModelAndView joinOk(LoginDTO dto) {
+		ModelAndView mav = new ModelAndView();
+		
+		int result = service.loginInsert(dto);
+		
+		if(result>0) {//회원가입 성공시 로그인페이지이동
+			mav.addObject("msg","회원가입에 성공했습니다. 로그인 페이지로 이동합니다.");
+			mav.setViewName("redirect:login");
+		}else {//회원가입 실패 시 로그인 폼으로 이동+메세지
+			mav.setViewName("login/join");
+		}
+		return mav;
 	}
 }
