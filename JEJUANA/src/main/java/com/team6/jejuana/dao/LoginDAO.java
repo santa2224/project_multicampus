@@ -5,9 +5,9 @@ import com.team6.jejuana.dto.LoginDTO;
 public interface LoginDAO {
 	public LoginDTO loginOk(String id, String password);
 	
-	//ì•„ì´ë”” ì¤‘ë³µê²€ì‚¬
+	//¾ÆÀÌµğ Áßº¹°Ë»ç
 	public int idCheckCount(String id);
 	
-	//íšŒì›ê°€ì…
+	//È¸¿ø°¡ÀÔ
 	public int loginInsert(LoginDTO dto);
 }

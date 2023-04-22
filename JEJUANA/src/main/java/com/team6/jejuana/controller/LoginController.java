@@ -1,5 +1,10 @@
 package com.team6.jejuana.controller;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URISyntaxException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -10,18 +15,27 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.team6.jejuana.dto.LoginDTO;
+import com.team6.jejuana.dto.MessageDTO;
+import com.team6.jejuana.dto.SmsResponseDTO;
 import com.team6.jejuana.service.LoginService;
+import com.team6.jejuana.service.SmsService;
+
+import lombok.RequiredArgsConstructor;
 
 @Controller
+@RequiredArgsConstructor
 public class LoginController {
 	
 	@Autowired
 	LoginService service;
 	
-	//
+	//·Î±×ÀÎ Æû
 	@GetMapping("/login")
 	public ModelAndView login() {
 		ModelAndView mav = new ModelAndView();
@@ -29,7 +43,7 @@ public class LoginController {
 		return mav;
 	}
 	
-	//
+	//È¸¿ø°¡ÀÔ Æû
 	@GetMapping("/join")
 	public ModelAndView join() {
 		ModelAndView mav = new ModelAndView();
@@ -37,24 +51,32 @@ public class LoginController {
 		return mav;
 	}
 	
-	//ë¡œê·¸ì¸(DB)
+	//°³ÀÎÁ¤º¸ µ¿ÀÇ Æû
+	@GetMapping("/information")
+	public ModelAndView information() {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("login/information");
+		return mav;
+	}
+	
+	//·Î±×ÀÎ(DB)
 	@PostMapping("/loginOk")
 	public ModelAndView loginOk(String id, String password, HttpServletRequest request, HttpSession session) {
 		LoginDTO dto = service.loginOk(id, password);
 		ModelAndView mav = new ModelAndView();
 		
-		if(dto!=null) {//ë¡œê·¸ì¸ ì„±ê³µ
+		if(dto!=null) {//·Î±×ÀÎ ¼º°ø
 			session.setAttribute("loginId", dto.getId());
 			session.setAttribute("loginPassword", dto.getPassword());
 			session.setAttribute("loginStatus", "Y");
 			mav.setViewName("redirect:/");
-		}else {//ë¡œê·¸ì¸ ì‹¤íŒ¨
+		}else {//·Î±×ÀÎ ½ÇÆĞ
 			mav.setViewName("redirect:login");
 		}
 		return mav;		
 	}
 	
-	// ë¡œê·¸ì•„ì›ƒ - ì„¸ì…˜ì œê±°
+	// ·Î±×¾Æ¿ô - ¼¼¼ÇÁ¦°Å
 	@RequestMapping("/logout")
 	public ModelAndView logout(HttpSession session) {
 		session.invalidate();
@@ -63,7 +85,7 @@ public class LoginController {
 		return mav;
 	}
 	
-	//ì•„ì´ë”” ì¤‘ë³µê²€ì‚¬
+	//¾ÆÀÌµğ Áßº¹°Ë»ç
 	@GetMapping("/idCheck")
 	public String idCheck(String id, Model model) {
 		int result = service.idCheckCount(id);
@@ -73,18 +95,45 @@ public class LoginController {
 		
 		return "login/idCheck";
 	}
+	//==================================================================
+	//ÈŞ´ëÆùÀÎÁõ
+	private final SmsService smsService;
+	@GetMapping("/sendSms")
+	public ModelAndView test() {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("login/sendSms");
+		
+		return mav;
+	}
 	
-	//íšŒì›ê°€ì…
+	@PostMapping("/smssend")
+	public ModelAndView sendSms(MessageDTO messageDto, Model model, HttpSession session) throws JsonProcessingException, RestClientException, URISyntaxException, InvalidKeyException, NoSuchAlgorithmException, UnsupportedEncodingException {
+		System.out.println("°ÅÀÇ ´ÙµÊ");
+		ModelAndView mav = new ModelAndView();
+		SmsResponseDTO response = smsService.sendSms(messageDto);
+		model.addAttribute("response", response);
+		
+		session.setAttribute("Anumber", messageDto.getContent());
+		System.out.println(messageDto.getContent());
+		mav.setViewName("login/sendSms");
+		
+		return mav;
+	}
+	
+
+	//==================================================================
+	
+	//È¸¿ø°¡ÀÔ
 	@RequestMapping(value="/joinOk", method=RequestMethod.POST)
 	public ModelAndView joinOk(LoginDTO dto) {
 		ModelAndView mav = new ModelAndView();
 		
 		int result = service.loginInsert(dto);
 		
-		if(result>0) {//íšŒì›ê°€ì… ì„±ê³µì‹œ ë¡œê·¸ì¸í˜ì´ì§€ì´ë™
-			mav.addObject("msg","íšŒì›ê°€ì…ì— ì„±ê³µí–ˆìŠµë‹ˆë‹¤. ë¡œê·¸ì¸ í˜ì´ì§€ë¡œ ì´ë™í•©ë‹ˆë‹¤.");
+		if(result>0) {//È¸¿ø°¡ÀÔ ¼º°ø½Ã ·Î±×ÀÎÆäÀÌÁöÀÌµ¿
+			mav.addObject("msg","È¸¿ø°¡ÀÔ¿¡ ¼º°øÇß½À´Ï´Ù. ·Î±×ÀÎ ÆäÀÌÁö·Î ÀÌµ¿ÇÕ´Ï´Ù.");
 			mav.setViewName("redirect:login");
-		}else {//íšŒì›ê°€ì… ì‹¤íŒ¨ ì‹œ ë¡œê·¸ì¸ í¼ìœ¼ë¡œ ì´ë™+ë©”ì„¸ì§€
+		}else {//È¸¿ø°¡ÀÔ ½ÇÆĞ ½Ã ·Î±×ÀÎ ÆûÀ¸·Î ÀÌµ¿+¸Ş¼¼Áö
 			mav.setViewName("login/join");
 		}
 		return mav;
