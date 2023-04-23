@@ -134,6 +134,7 @@ public class LoginController {
 			mav.addObject("msg","회원가입에 성공했습니다. 로그인 페이지로 이동합니다.");
 			mav.setViewName("redirect:login");
 		}else {//회원가입 실패 시 로그인 폼으로 이동+메세지
+			mav.addObject("msg","회원가입에 실패했습니다. 회원가입 페이지로 이동합니다.");
 			mav.setViewName("login/join");
 		}
 		return mav;
