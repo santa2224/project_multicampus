@@ -5,9 +5,18 @@ import com.team6.jejuana.dto.LoginDTO;
 public interface LoginService{
 	public LoginDTO loginOk(String id, String password);
 	
-	//¾ÆÀÌµğ Áßº¹°Ë»ç
+	//ï¿½ï¿½ï¿½Ìµï¿½ ï¿½ßºï¿½ï¿½Ë»ï¿½
 	public int idCheckCount(String id);
 	
-	//È¸¿ø°¡ÀÔ
+	//È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	public int loginInsert(LoginDTO dto);
+	
+	//ì•„ì´ë””ì°¾ê¸°
+	public String idSelect(String name, String phone_num);
+	
+	//ë¹„ë°€ë²ˆí˜¸ì°¾ê¸°
+	public LoginDTO idCount(String name, String id, String phone_num);
+		
+	//ë¹„ë°€ë²ˆí˜¸ ìˆ˜ì •
+	public int pwdUpdate(LoginDTO dto);
 }

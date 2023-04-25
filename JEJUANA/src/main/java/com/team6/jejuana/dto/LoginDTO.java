@@ -10,14 +10,15 @@ public class LoginDTO {
 	private String email2;
 	private String sign_date;
 	private String member_type;
+	private String phone_num;
 	
 	
 	
 	@Override
 	public String toString() {
 		return "LoginDTO [id=" + id + ", password=" + password + ", name=" + name + ", nickname=" + nickname
-				+ ", email=" + email1 + ", email2=" + email2 + ", sign_date=" + sign_date + ", member_type="
-				+ member_type + "]";
+				+ ", email=" + email + ", email1=" + email1 + ", email2=" + email2 + ", sign_date=" + sign_date
+				+ ", member_type=" + member_type + ", phone_num=" + phone_num + "]";
 	}
 	public String getId() {
 		return id;
@@ -68,6 +69,12 @@ public class LoginDTO {
 		this.email2 = email2;
 	}
 	//--------------------------------------------
+	public String getPhone_num() {
+		return phone_num;
+	}
+	public void setPhone_num(String phone_num) {
+		this.phone_num = phone_num;
+	}
 	public String getSign_date() {
 		return sign_date;
 	}
