@@ -130,7 +130,7 @@
 	}
 	.main_border_box>h1{
 	    font-family: 'MBC1961GulimM';
-		font-size:50px
+		font-size:70px;
 	}
 	.top_box>img {
 		float: left;
@@ -149,7 +149,8 @@
 		text-align: center;
 	}
 	.content_box1>div {
-		margin: 0 auto
+		margin: 0 auto;
+		margin-top:170px;
 	}
 	.content_box1>div>h3 {
 		margin-top: 54px;
