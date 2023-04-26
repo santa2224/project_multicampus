@@ -5,10 +5,10 @@ import com.team6.jejuana.dto.LoginDTO;
 public interface LoginService{
 	public LoginDTO loginOk(String id, String password);
 	
-	//���̵� �ߺ��˻�
+	//아이디중복체크
 	public int idCheckCount(String id);
 	
-	//ȸ������
+	//회원가입
 	public int loginInsert(LoginDTO dto);
 	
 	//아이디찾기
