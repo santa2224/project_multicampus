@@ -90,7 +90,7 @@ $(function(){
 				<!-- 전화번호 -->
 				<div class="phone_box">
 					<p class="find_box_size" align="left">전화번호</p>
-					<input type="text" name="phone_num" id="phone_num" placeholder="전화번호를 입력해 주세요. ('-' 포함)"  class="find_box_size"/>
+					<input type="text" name="phone_num" id="phone_num" placeholder="전화번호를 입력해 주세요. ('-' 제외)" maxlength="11" class="find_box_size"/>
 				</div>
 				<!-- 찾기/이전으로 버튼 -->
 				<div class="find_button">

@@ -12,27 +12,18 @@ let ojphone_num;
 let ojEmail;
 let ojEmail2;
 let ojInformation;
-
 //아이디 조건변수
 let idCondition = /^[a-z0-9_]{5,20}$/
-
 //비밀번호 조건변수
 let pwdCondition = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/
-
 //닉네임 조건변수
 let nickCondition = /^[ㄱ-ㅎㅏ-ㅣ가-힣a-zA-Z0-9]{2,10}$/
-
 //이메일 @앞부분 조건변수
 let emailCondition = /^[a-zA-Z0-9._%+-]+$/
-
 //이메일 @뒷부분 조건변수
 let emailCondition2 = /^[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
-
 //휴대폰 조건변수
 let telCondition = /^01(0|1|6|7|8|9)[0-9]{7,8}/
-
-
-
 $(function(){
 	ojId = document.getElementById("id");
 	ojPwd = document.getElementById("password");
@@ -90,14 +81,12 @@ $(function(){
 });
 function joinform_check(){
 	//유효성 검사
-
 		//아이디
 		if($("#id").val()==""){
 			alert("아이디를 입력하세요.");
 			ojId.focus();
 			return false;
 		};
-
 		//비밀번호
 		if($("#password").val()==""){
 			alert("비밀번호를 입력하세요.");
@@ -116,15 +105,7 @@ function joinform_check(){
 			ojPwd2.focus();
 			return false;
 		}
-		//휴대폰 번호 확인
-		if($("#phone_num").val()==""){
-			alert("휴대폰번호를 입력하세요.");
-			return false;
-		}
-		if(!telCondition.test($("#phone_num").val())){
-			alert("-을 제외하고 입력해주세요");
-			return false;
-		}
+		
 		//이름
 		if($("#name").val()==""){
 			alert("이름을 입력하세요.");
@@ -139,7 +120,7 @@ function joinform_check(){
 		}
 		//닉네임 검사
 		if(!nickCondition.test($("#nickname").val())){
-			alert("닉네임은 영대소문자, 특수기호 필수포함, 연속되는 숫자 사용금지, 공백문자 불가의 조건으로 생성가능합니다.");
+			alert("특수기호, 공백문자 사용불가(_-포함), 2~10자의 영문자,숫자,한글 사용가능합니다.");
 			ojUsernickname.focus();
 			return false;
 		}
@@ -168,6 +149,17 @@ function joinform_check(){
 			return false;
 		}
 		
+		//휴대폰 번호 확인
+		if($("#phone_num").val()==""){
+			alert("휴대폰번호를 입력하세요.");
+			return false;
+		}
+		
+		if(!telCondition.test($("#phone_num").val())){
+			alert("-을 제외하고 입력해주세요");
+			return false;
+		}
+		
 		//개인정보동의 체크박스
 		if( !$("input[name='information']").is(':checked') ){
 			alert("개인정보를 동의하셔야 회원가입 가능합니다.");
@@ -177,7 +169,6 @@ function joinform_check(){
 		return true;
 	
 }
-
 </script>
 
 
@@ -633,6 +624,4 @@ function joinform_check(){
 	function information_false(){
 		$('[name=information]').prop('checked', false);		
 	}
-
 </script>
-	
