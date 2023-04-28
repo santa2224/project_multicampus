@@ -44,7 +44,7 @@
 					$(comment).each(function(i, cDTO){
 						tag += "<li><div><b>"+cDTO.id+" ("+cDTO.writedate+")</b>";
 						//본인이 쓴 댓글일 때
-						if(cDTO.id == '${logId}'){
+						if(cDTO.id == '${loginId}'){
 							tag += "<input type='button' value='수정'/>";
 							tag += "<input type='button' value='삭제' title='"+cDTO.comment_no+"' />";
 							
@@ -72,7 +72,7 @@
 		}
 		
 		//댓글 작성
-		if(${logStatus!='Y' }){
+		if(${loginStatus!='Y' }){
 			$("#comment_button").attr("disabled", true);
 			$("#comment_content").attr("readonly", true);
 		}
@@ -150,8 +150,8 @@
 		commentList();
 	});
 </script>
-<div class="container">
-<br><br>
+
+<div class="container reviewView_container">
 	<div class="category">여행기록 · ${dto.tag }</div>
 	<div class="view_sub">${dto.review_subject }</div>
 	<div>
@@ -169,7 +169,7 @@
 	
 	<div class="postbtn" style="word-wrap:break-word;">
 		<a href="reviewJoa?plan_no=${dto.plan_no }" class="joayo">좋아요 ${dto.joayo_hit }</a>
-		<c:if test="${logId!=dto.id }">
+		<c:if test="${loginStatus!=dto.id }">
 			<a href="reviewBm?target_no=${dto.plan_no }" class="bookmark">북마크</a>
 		</c:if>
 	</div>
@@ -177,7 +177,7 @@
 	<div class="view_subMenu">
 		<input type="hidden" name="plan_no" value="${dto.plan_no }">
 		<a href="reviewList">목록</a>
-		<c:if test="${logId==dto.id }">
+		<c:if test="${loginId==dto.id }">
 			<a href="reviewEdit?plan_no=${dto.plan_no }">수정</a>
 		<a href="javascript:reviewDel()">삭제</a>
 		</c:if>
@@ -188,7 +188,7 @@
 	<div>
 			<form method="post" id="commentForm">
 			<input type="hidden" name="target_no" value="${dto.plan_no }">
-			<textarea name="comment_content" id="comment_content" placeholder="<c:if test= "${logStatus=='Y' }">내용을 입력해 주세요</c:if><c:if test= "${logStatus!='Y' }">로그인 후 입력 가능합니다</c:if>"></textarea>
+			<textarea name="comment_content" id="comment_content" placeholder="<c:if test= "${loginStatus=='Y' }">내용을 입력해 주세요</c:if><c:if test= "${loginStatus!='Y' }">로그인 후 입력 가능합니다</c:if>"></textarea>
 			<button id="comment_button">댓글 등록</button>
 		</form>
 		<ul id="commentList">

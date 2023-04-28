@@ -10,9 +10,6 @@
 	padding:20px 0 20px 0;
 	
 }
-.nickname>div{
-	
-}
 .nickname>div>span{
 	font-family: 'GmarketSansMedium';
 	margin-bottom: 5px;
@@ -39,6 +36,16 @@
 }
 .menu li{
 	font-family: 'GmarketSansMedium';
+	margin-bottom: 10px;
+}
+#bold1>a:hover, #bold2>a:hover, #bold3>a:hover, #bold4>a:hover, #bold5>a:hover{
+	color:#F37321
+}
+#bold7:hover{
+	color:#F37321
+}
+#bold3{
+	margin-top:5px;
 }
 .aside{
 	float:left;
@@ -57,6 +64,7 @@ a{
 	color:black;
 }
 .content_s{
+	font-family: 'GmarketSansMedium';
 	padding-bottom:20px;
 	float:left;
 	/*border:1px solid gray;*/

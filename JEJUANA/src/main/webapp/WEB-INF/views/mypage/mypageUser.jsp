@@ -1,110 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ include file="/resources/mypageMenu.jspf" %>
-<style>
-	.userTitle{
-		width:18%;
-		border:1px solid navy;
-		font-size:1.5em;
-		margin-top:20px;
-		margin-left:20px;
-		padding:10px;
-		text-align:center;
-	}
-	#bold5{
-		font-weight:bold;
-	}
-	.join_inputBox{ 
-	 	display:inline-block;
-	 	width:42%;
-	 	float:left;
-	 	margin:50px 20px;
-	 	padding-left:50px;
-	}
-	.join_inputBox>div{
-	 	width:100%;
-	 	float:left;
-	 	margin-left:14px;
-	 	margin-bottom:20px;
-	 }
-	 .join_inputBox p{
-	 	display:inline-block;
-	 	width:50%;
-	 	border:1px solid #aaaaaa;
-	 	text-align:center;
-	 	padding:6px;	
-	 }
-	 .join_inputBox input{
-	 	font-size:12px;
-	 	padding:6px;
-	 	height:31px;
-	 	width:200px;
-	 }
-	 .userButton{
-	 	float:left;
-	 	margin:80px -153px 20px;
-	 }
-	 .userButton input{
-	 	font-size:12px;
-	 	padding:6px;
-	 	height:31px;
-	 	width:200px;
-	 }
-	 
-	#modalC {
-  	   width: 100%;
-       height: 100%;
-       position: absolute;
-       left: 0;
-       top: 0;
-       display: none;
-       flex-direction: column;
-       align-items: center;
-       justify-content: center;
-	}
-	.modal-window {
-    	background: gray;
-        box-shadow: 0 8px 32px 0 #ddd;
-        backdrop-filter: blur( 13.5px );
-        -webkit-backdrop-filter: blur( 13.5px );
-        border-radius: 10px;
-        border: 1px solid rgba( 255, 255, 255, 0.18 );
-        width: 450px;
-        height: 450px;
-        position: relative;
-        top: -85px;
-        left:85px;
-        padding: 10px;
-    }
-    #p1{
-    	margin-top:115px;
-    	text-align:center;
-    	font-size:21px;
-    	font-weight:bold;
-    }
-    #p2{
-    	text-align:center;	
-    }
-    #pwdC{
-    	margin-top:20px;
-    	width:250px;
-    }
-    .btnC{
-    	text-align:center;
-    	margin-top:20px;
-    }
-    .btnC input{
-    	font-size:12px;
-	 	padding:6px;
-	 	height:31px;
-	 	width:200px;
-    }
-    .close-area{
-    	padding-top:10px;
-    	padding-left:400px;
-    	font-weight:bold;
-    }
-</style>
+<link rel="stylesheet" href="/jejuana/css/mypageUser.css">
 
 <script>
 	
@@ -207,20 +104,6 @@
 				$("#userEditForm").attr("action","userEditOk");
 				
 			});
-		
-			//회원탈퇴
-			$("#userDelete").click(function(){
-				
-				var widthU = 400;
-				var heightU = 400;
-				
-				var leftU = (window.screen.width / 2) - (400/2);
-				var topU = (window.screen.height / 4);
-				
-				var windowStatusU = 'width='+widthU+', height='+heightU+', left='+leftU+', top='+topU+', scrollbars=no, status=no, resizable=no, titlebar=yes';
-				
-				window.open("userDelete", "userDelete", windowStatusU);
-			});
 	});
 </script>
 
@@ -273,16 +156,57 @@
 			</div>
 		</div>	
 		<div class="userButton">
-			<input type="submit" value="수정하기"/>
+			<input type="submit" value="수정하기" id="userChange"/>
 			<input type="button" value="탈퇴하기" id="userDelete"/>
 		</div>
 	</form>
 </div>	
 	
+	<div id="modalC" class="modal-overlay">
+		<div class="modal-window">
+			<form method="post" id="userDeleteCheck">
+				<div class="close-area">X</div>
+				<div class="content-modal"> 
+					<p id="p1">정말 탈퇴하시겠습니까?</p><br/>
+					<p id="p2">탈퇴하시려면 비밀번호를 입력해주세요.</p>
+				</div>
+				<div style="text-align:center">
+					<input type="password" name="password" id="pwdC"/>
+				</div>
+				<div class="btnC">
+					<input type="submit" value="탈퇴하기"/>
+				</div>
+			</form>
+		</div>
+	</div>
 
 </div>
 
-
-
-</body>
-</html>
+<script>
+	const modal = document.getElementById("modalC")
+	const btnModal = document.getElementById("userDelete")
+	btnModal.addEventListener("click", e => {
+	    modal.style.display = "flex"
+	})
+	
+	const closeBtn = modal.querySelector(".close-area")
+	closeBtn.addEventListener("click", e => {
+	    modal.style.display = "none"
+	})
+	
+	$(function(){
+		
+		//회원탈퇴
+		$("#userDeleteCheck").submit(function(){
+			
+			if($("#pwdC").val()==""){
+				alert("비밀번호를 입력해주세요.");
+				return false;
+			}
+			
+			$("#userDeleteCheck").attr("action", "userDelete");
+			
+		});
+		
+	});
+</script>

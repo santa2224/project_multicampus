@@ -20,9 +20,9 @@
 			<ul>
 				<li id="bold1"><a href="/jejuana/mypage/mypagePlan">나의 일정 관리</a></li>
 				<li id="bold2"><a href="/jejuana/mypage/mypageReview">여행기록 관리</a></li>
-				<li>
+				<li id="bold6">
 					<details open>
-						<summary>북마크</summary>
+						<summary id="bold7">북마크</summary>
 						<ul>
 							<li id="bold3"><a href="/jejuana/mypage/mypageCourse">코스</a></li>
 							<li id="bold4"><a href="/jejuana/mypage/mypagePlace">여행지</a></li>

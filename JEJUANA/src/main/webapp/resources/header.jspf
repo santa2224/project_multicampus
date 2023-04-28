@@ -14,6 +14,10 @@
 <!-- fontawesome -->
 <script src="https://kit.fontawesome.com/803f3553c2.js" crossorigin="anonymous"></script>
 
+<!-- swiper -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css"/>
+<script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+
 <link rel="stylesheet" href="/jejuana/css/header.css"/>
 <link rel="stylesheet" href="/jejuana/css/reset.css"/>
 <script>
@@ -46,7 +50,7 @@
 			<!-- 카테고리 -->
 			<div id="kategorie">
 				<ul>
-					<li><a href="planner">계획만들기</a></li>
+					<li><a href="/jejuana/planner">계획만들기</a></li>
 					<li><a href="/jejuana/map_list">여행지목록</a></li>
 					<li><a href="/jejuana/review/reviewList">여행기록</a></li>
 					<div class="dropdown">
@@ -59,7 +63,7 @@
 					<c:if test="${sessionScope.loginId!=null }">
 						<button onclick="myFunction()" class="dropbtn"><%=(String)session.getAttribute("nickname") %>님 환영합니다</button>
 							<div id="myDropdown" class="dropdown-content">
-								<a href="#">마이페이지</a> <a href="../logout">로그아웃</a>
+								<a href="/jejuana/mypage/mypagePlan">마이페이지</a> <a href="../logout">로그아웃</a>
 							</div>
 					</c:if>
 						

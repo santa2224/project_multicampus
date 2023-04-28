@@ -53,11 +53,9 @@
 
 #bold1{
 	font-weight:bold;
+	margin-bottom:10px;
 }
-#acp{
-	margin-top:20px;
-	margin-left:55px;
-}
+
 .planReviewY{
 	font-family: 'GmarketSansMedium';
 	width: 90px;
@@ -118,7 +116,6 @@ body>div{
 	background: #2C394B;
 	border-radius:5px;
 }
-
 #acp{
 	font-family:'GmarketSansMedium';
 	margin-left:45px;

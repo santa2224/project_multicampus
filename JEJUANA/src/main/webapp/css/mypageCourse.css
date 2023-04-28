@@ -1,6 +1,6 @@
 .container_flex{
 	float:left;
-	margin-top:30px;
+	margin-top:5px;
 	width:100%;
 	display:flex;
 	flex-wrap:wrap;
@@ -11,7 +11,7 @@
 .courseBookmark{
 	margin:10px 11px 10px 10px;
 	width:23%;
-	height:270px;
+	height:330px;
 	background:#F5F5F5;
 	border-radius:4px;
 	display:flex;	
@@ -28,6 +28,11 @@
 #acc{
 	margin-top:20px;
 	margin-left:20px;
+}
+.courseBookmark>ul{
+	margin:auto;
+	width: 260px;
+    height: 292px;
 }
 .courseBookmark li{
 	margin: 5px 10px 0px;
@@ -48,11 +53,59 @@
 	overflow: hidden;
    	text-overflow: ellipsis;
 }
-#chooseDelC{
+.chooseDelC{
 	margin-left:10px;
 }
+.chooseDel1_txt{
+	display:inline-block;
+}
+.chooseDelC1{
+	border-radius:50px;
+	border:1px solid gray;
+	appearance: none;
+    cursor: pointer;
+    transition: background 0.2s;
+    width:12px;
+    height:12px;
+}
+.chooseDelC1:checked{
+	background:#F37321;
+	border:none;
+}
 #jo{
-	float:right;
+	float:left;
 	font-size:14px;
+	/*padding-top:5px;*/
+}
+#jo>div, #jo>i{
+	display:inline-block;
+}
+/*버튼효과*/
+.CourseBtn_view:hover{
+	background:#F37321;
+}
+.CourseBtn_view{
+	width: 70px;
+	font-size:13px;
+	color:white;
+	height: 25px;
+	border: none;
+	background: #2C394B;
+	border-radius:5px;
 	padding-top:5px;
+	float:right;
+}
+.chooseDelC2:hover{
+	background:#F37321;
+}
+.chooseDelC2{
+	width: 70px;
+	font-size:13px;
+	color:white;
+	height: 25px;
+	border: none;
+	background: #2C394B;
+	border-radius:5px;
+	padding-top:5px;
+	margin-left:10px;
 }

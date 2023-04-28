@@ -240,25 +240,35 @@ $(function(){
 		<input type="hidden" id="thumbnail" name="thumbnail" value="">
 		<ul>
 			<div style="text-align:center">
-			<div><${dto.days }일 동안의 여행에 대한 기록></div>
-				<li><input type="text" name="review_subject" id="review_subject" placeholder="제목을 입력하세요. (10자 이내)" maxlength="10"></li>
+			<div class="reviewWrite_mainfont">${dto.days}</div>
+			<div class="reviewWrite_mainfont2">일 동안의 여행에 대한 기록</div>
+				<li><input type="text" name="review_subject" id="review_subject" placeholder="제목을 입력하세요. (30자 이내)" maxlength="30"></li>
 			</div>
 			<li>
 				<textarea name="review_content" id="review_content"  placeholder="솔직한 리뷰는 사람들에게 도움이 됩니다! * 이미지는 1장 이상 첨부해 주세요"></textarea>
 			</li>
 		</ul>
 		<div>
-			<div style="font-weight:bold">[태그 선택]</div>
-			<div>- 태그는 필수 선택이며, 최대 3개까지 선택할 수 있습니다.</div>
+			<div class="tag_title">[태그 선택]</div>
+			<div>
+				<i class="fa-solid fa-circle-info tag_icon"></i>
+				<div class="tag_txt tag_txt2">태그는 필수 선택이며, 최대 3개까지 선택할 수 있습니다.</div>
+			</div>
 			<div id="tagli"></div>
 		</div>
 		<div>
-			<div style="font-weight:bold">[다녀온 여행지 목록]</div>
-			<div>- 여행지 이름을 클릭하면 별점을 남길 수 있습니다. (자유)</div>
-			<div>- 한 번 등록한 별점은 수정/삭제할 수 없습니다. </div>
+			<div class="visit_list">[다녀온 여행지 목록]</div>
+			<div>
+				<i class="fa-solid fa-circle-info tag_icon"></i>
+				<div class="tag_txt">여행지 이름을 클릭하면 별점을 남길 수 있습니다. (자유)</div>
+			</div>
+			<div>
+				<i class="fa-solid fa-circle-info tag_icon"></i>
+				<div class="tag_txt">한 번 등록한 별점은 수정/삭제할 수 없습니다. </div>
+			</div>
 			<div id="starli"></div>
 		</div>
 		<a href="/jejuana/review/reviewList">목록</a>
-		<input type="submit" value="업로드하기">
+		<input class="reviewWrite_btn" type="submit" value="업로드하기">
 	</form>
 </div>
