@@ -5,6 +5,7 @@ import com.team6.jejuana.dto.PlaceDTO;
 import com.team6.jejuana.dto.PlanDTO;
 import com.team6.jejuana.service.PlanService;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,38 +23,73 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+
 @Controller
-public class PlannerController {
+public class PlannerController  {
     @Autowired
     PlanService service;
 
     @GetMapping("/planner")
     public ModelAndView planner(HttpSession session) {
-        session.setAttribute("logId", "ggamangso");
         return new ModelAndView("planner/planner");
     }
 
-    @GetMapping("plannerchoose")
-    public String plannerchoose() {
-
-        return "planner/plannerchoose";
-    }
-
-    @GetMapping("test")
-    public String test() {
-
-        return "planner/test";
-    }
+//    @GetMapping("plannerchoose")
+//    public String plannerchoose() {
+//
+//        return "planner/plannerchoose";
+//    }
+//
+//    @GetMapping("test")
+//    public String test() {
+//
+//        return "planner/test";
+//    }
 
     @GetMapping("plannerKakaoMap")
     public String plannerKakaoMap() {
 
         return "planner/plannerKakaoMap";
     }
+    @PostMapping(value = "/planUpdate",  produces = "application/text; charset=utf-8")
+    @ResponseBody
+    public String planUpdate(String plan_num, String plan_name, String start_date, String end_date, int days, String schedule,
+                           HttpSession session) throws ParseException {
+
+        PlanDTO planDTO = new PlanDTO();
+        int plan_no = Integer.parseInt(plan_num);
+        planDTO.setPlan_no(plan_no);
+        planDTO.setPlan_name(plan_name);
+        planDTO.setStart_date(start_date);
+        planDTO.setEnd_date(end_date);
+        planDTO.setDays(days);
+        planDTO.setId((String) session.getAttribute("loginId"));
+        int result = service.planUpdate(planDTO);
+
+        List<CourseDTO> list = new ArrayList<CourseDTO>();
+
+        JSONArray jArray = new JSONArray(schedule);
+        System.out.println(jArray.get(0).getClass().getSimpleName());
+        for (int i = 0; i < jArray.length(); i++) {
+            JSONObject course = jArray.getJSONObject(i);
+            CourseDTO dto = new CourseDTO();
+            dto.setPlan_no(plan_no);
+            dto.setPlace_no(course.getInt("place_no"));
+            dto.setDays_order(course.getInt("days_order"));
+            dto.setCourse_order(course.getInt("course_order"));
+            list.add(dto);
+        }
+        int del_result = service.courseDel(plan_no);
+        int c_result = service.courseSave(list);
+
+
+
+        return ""+c_result;
+    }
 
     @PostMapping(value = "/planSave",  produces = "application/text; charset=utf-8")
     @ResponseBody
-    public String planSave(String plan_name, String start_date, String end_date, int days, String schedule,
+    public String planSave(String plan_num, String plan_name, String start_date, String end_date, int days, String schedule,
                            HttpSession session) throws ParseException {
 
         PlanDTO planDTO = new PlanDTO();
@@ -61,35 +97,32 @@ public class PlannerController {
         planDTO.setStart_date(start_date);
         planDTO.setEnd_date(end_date);
         planDTO.setDays(days);
-//        planDTO.setId((String) session.getAttribute("logId"));
-        planDTO.setId("ggamangso");
-        service.planSave(planDTO);
+        planDTO.setId((String) session.getAttribute("loginId"));
 
+        int result = service.planSave(planDTO);
+
+        int plan_no = planDTO.getPlan_no();
 
 
 
         List<CourseDTO> list = new ArrayList<CourseDTO>();
 
         JSONArray jArray = new JSONArray(schedule);
-        for(Object course:jArray){
-            System.out.println(course.toString());
+        System.out.println(jArray.get(0).getClass().getSimpleName());
+        for (int i = 0; i < jArray.length(); i++) {
+            JSONObject course = jArray.getJSONObject(i);
             CourseDTO dto = new CourseDTO();
-            JSONObject jsonCourse = new JSONObject(course);
-            dto.setPlace_no(jsonCourse.getInt("place_no"));
-            dto.setDay(jsonCourse.getInt("day"));
-            dto.setOrder(jsonCourse.getInt("order"));
+            dto.setPlan_no(plan_no);
+            dto.setPlace_no(course.getInt("place_no"));
+            dto.setDays_order(course.getInt("days_order"));
+            dto.setCourse_order(course.getInt("course_order"));
+            list.add(dto);
         }
-        
-//        ModelAndView mav = new ModelAndView();
-//        dto.setId((String) session.getAttribute("logId"));   //session.getAttribute("logId")
-//        dto.setParticipants(dto.getParticipants() + 1);
-//        int result = service.planSave(dto);
-//        System.out.println(result);
-//
-//        mav.setViewName("redirect:/");
+        int c_result = service.courseSave(list);
 
 
-        return "11";
+
+        return ""+c_result;
     }
 
     @PostMapping("placeAllList")
@@ -102,16 +135,25 @@ public class PlannerController {
     @ResponseBody
     public List<PlaceDTO> placeSelectList(String searchWord, int pageNo) {
 //        System.out.println(searchWord+ " - "+ pageNo);
+        List<PlaceDTO> list = service.placeSelectList(searchWord, pageNo);
+        for (int i = 0; i < list.size(); i++) {
+            int place_no = list.get(i).getPlace_no();
+            if(service.checkRate(place_no)>0){
+                double rate = service.takeRate(place_no);
+                list.get(i).setRate(rate);
+            }
 
-        return service.placeSelectList(searchWord, pageNo);
+        }
+        System.out.println(list.toString());
+
+        return list;
     }
     @PostMapping("bookmarkList")
     @ResponseBody
     public List<PlaceDTO> bookmarkList(String searchWord, int pageNo, HttpSession session) {
         System.out.println(searchWord+ " - "+ pageNo);
-        String userid = (String) session.getAttribute("logId");
-        userid = "ggamangso";
-        return service.bookmarkList(searchWord, userid);
+        String userid = (String) session.getAttribute("loginId");
+        return service.bookmarkList(searchWord, pageNo, userid);
     }
 
     @PostMapping("selectedPlace")
@@ -144,46 +186,62 @@ public class PlannerController {
             placeList = getDocument(getJSONData(url));
             System.out.println(placeList);
         } catch (Exception e) {
-            System.out.println("ì£¼ì†Œ api ìš”ì²­ ì—ëŸ¬");
+            System.out.println("ÁÖ¼Ò api ¿äÃ» ¿¡·¯");
             e.printStackTrace();
         }
 
         return placeList;
     }
 
+    @PostMapping("planList")
+    @ResponseBody
+    public List<PlanDTO> planList(HttpSession session){
+        String userid = (String) session.getAttribute("loginId");
+        System.out.println(userid);
+
+        List<PlanDTO> list = service.planList(userid);
+        return list;
+    }
+
+    @PostMapping("planSelect")
+    @ResponseBody
+    public List<CourseDTO> courseSelect(String plan_no) {
+        return service.courseSelect(Integer.parseInt(plan_no));
+    }
+
 
     /**
-     * REST APIë¡œ í†µì‹ í•˜ì—¬ ë°›ì€ JSONí˜•íƒœì˜ ë°ì´í„°ë¥¼ Stringìœ¼ë¡œ ë°›ì•„ì˜¤ëŠ” ë©”ì†Œë“œ
+     * REST API·Î Åë½ÅÇÏ¿© ¹ŞÀº JSONÇüÅÂÀÇ µ¥ÀÌÅÍ¸¦ StringÀ¸·Î ¹Ş¾Æ¿À´Â ¸Ş¼Òµå
      */
     private static String getJSONData(String apiUrl) throws Exception {
         HttpURLConnection conn = null;
         StringBuffer response = new StringBuffer();
 
-        //ì¸ì¦í‚¤ - KakaoAKí•˜ê³  í•œ ì¹¸ ë„ì›Œì£¼ì…”ì•¼í•´ìš”!
+        //ÀÎÁõÅ° - KakaoAKÇÏ°í ÇÑ Ä­ ¶ç¿öÁÖ¼Å¾ßÇØ¿ä!
         String auth = "KakaoAK " + "c1aec10b875abd1dc9b8fc836550090a";
 
-        //URL ì„¤ì •
+        //URL ¼³Á¤
         URL url = new URL(apiUrl);
 
         conn = (HttpURLConnection) url.openConnection();
 
-        //Request í˜•ì‹ ì„¤ì •
+        //Request Çü½Ä ¼³Á¤
         conn.setRequestMethod("GET");
         conn.setRequestProperty("X-Requested-With", "curl");
         conn.setRequestProperty("Authorization", auth);
 
-        //requestì— JSON data ì¤€ë¹„
+        //request¿¡ JSON data ÁØºñ
         conn.setDoOutput(true);
 
-        //ë³´ë‚´ê³  ê²°ê³¼ê°’ ë°›ê¸°
+        //º¸³»°í °á°ú°ª ¹Ş±â
         int responseCode = conn.getResponseCode();
         if (responseCode == 400) {
-            System.out.println("400:: í•´ë‹¹ ëª…ë ¹ì„ ì‹¤í–‰í•  ìˆ˜ ì—†ìŒ");
+            System.out.println("400:: ÇØ´ç ¸í·ÉÀ» ½ÇÇàÇÒ ¼ö ¾øÀ½");
         } else if (responseCode == 401) {
-            System.out.println("401:: Authorizationê°€ ì˜ëª»ë¨");
+            System.out.println("401:: Authorization°¡ Àß¸øµÊ");
         } else if (responseCode == 500) {
-            System.out.println("500:: ì„œë²„ ì—ëŸ¬, ë¬¸ì˜ í•„ìš”");
-        } else { // ì„±ê³µ í›„ ì‘ë‹µ JSON ë°ì´í„°ë°›ê¸°
+            System.out.println("500:: ¼­¹ö ¿¡·¯, ¹®ÀÇ ÇÊ¿ä");
+        } else { // ¼º°ø ÈÄ ÀÀ´ä JSON µ¥ÀÌÅÍ¹Ş±â
 
             Charset charset = Charset.forName("UTF-8");
             BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(), charset));
@@ -199,7 +257,7 @@ public class PlannerController {
     }
 
     /**
-     * JSONí˜•íƒœì˜ String ë°ì´í„°ì—ì„œ ì£¼ì†Œê°’(address_name)ë§Œ ë°›ì•„ì˜¤ê¸°
+     * JSONÇüÅÂÀÇ String µ¥ÀÌÅÍ¿¡¼­ ÁÖ¼Ò°ª(address_name)¸¸ ¹Ş¾Æ¿À±â
      */
     private static String getDocument(String jsonString) {
         String value = "";

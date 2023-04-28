@@ -11,7 +11,7 @@
 	</select>
 	<!-- 일반 게시글 목록 -->
 	<select id="reviewAllSelect" resultType="com.team6.jejuana.dto.ReviewDTO">
-		select r.plan_no, r.review_subject, u.id, u.nickname, r.review_hit, to_char(r.writedate, 'YYYY-MM-DD HH24:MI') writedate, r.thumbnail, r.tag, r.joayo_hit
+		select r.plan_no, r.review_subject, u.id, u.nickname, r.review_hit, to_char(r.writedate, 'YYYY-MM-DD') writedate, r.thumbnail, r.tag, r.joayo_hit
 		from review r join common u on r.id=u.id
 		where activated=0
 		<if test="searchWord!=null"> <!-- 검색어 있을 경우 -->
@@ -38,7 +38,7 @@
 	 </select>
 	 <!-- 별점 중복 확인 -->
 	 <select id="starSelect" resultType="int">
-		select count(rate_no) from rate where plan_no=${plan_no} and id=#{id}
+		select count(rate_no) from rate where plan_no=${plan_no} and id=#{id} and place_no=${place_no}
 	</select>
 	<!-- 별점 정보 등록 -->
 	 <insert id="starInsert">

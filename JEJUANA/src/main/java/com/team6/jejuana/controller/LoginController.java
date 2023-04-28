@@ -27,9 +27,10 @@ import org.springframework.web.servlet.ModelAndView;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.team6.jejuana.dto.LoginDTO;
 import com.team6.jejuana.dto.MessageDTO;
-
+import com.team6.jejuana.dto.PagingDTO;
 import com.team6.jejuana.dto.SmsResponseDTO;
 import com.team6.jejuana.service.LoginService;
+import com.team6.jejuana.service.ManagerService;
 import com.team6.jejuana.service.SmsService;
 
 import lombok.RequiredArgsConstructor;
@@ -40,6 +41,9 @@ public class LoginController {
 	
 	@Autowired
 	LoginService service;
+	
+	@Autowired
+    ManagerService mservice;
 	
 	//로그인페이지 이동      
 	@GetMapping("/login")
@@ -81,7 +85,7 @@ public class LoginController {
 	
 	//로그인 (DB)
 	@PostMapping("/loginOk")
-	public ModelAndView loginOk(String id, String password, HttpServletRequest request, HttpSession session) {
+	public ModelAndView loginOk(String id, String password, HttpServletRequest request, HttpSession session,PagingDTO vo) {
 		LoginDTO dto = service.loginOk(id, password);
 		ModelAndView mav = new ModelAndView();
 		
@@ -90,10 +94,24 @@ public class LoginController {
 			session.setAttribute("loginPassword", dto.getPassword());
 			session.setAttribute("loginStatus", "Y");
 			session.setAttribute("nickname", dto.getNickname());
-			mav.setViewName("login/loginOkResult");
+			
+			//System.out.println(dto.toString());
+			if(dto.getMember_type()==1) {
+				//System.out.println("qwer");
+				mav.setViewName("redirect:manager/commonmanager1");
+				vo.setTotalRecord(mservice.commontotalRecord(vo));
+				mav.addObject("list",mservice.commonpageSelect(vo));
+				mav.addObject("nowpage",vo.getNowPage());
+				mav.addObject("vo",vo);
+				
+			}else {
+				mav.setViewName("login/loginOkResult");
+			}
+			
 		}else {        
 			mav.setViewName("redirect:login");
 		}
+		
 		return mav;		
 	}
 	
@@ -117,20 +135,20 @@ public class LoginController {
 		return "login/idCheck";
 	}
 	//회원가입
-		@RequestMapping(value="/joinOk", method=RequestMethod.POST)
-		public ModelAndView joinOk(LoginDTO dto) {
-			ModelAndView mav = new ModelAndView();
-			
-			int result = service.loginInsert(dto);
-			
-			if(result>0) {//회원가입 성공시 로그인페이지이동
-				mav.addObject("msg","회원가입에 성공했습니다. 로그인 페이지로 이동합니다.");
-				mav.setViewName("redirect:login");
-			}else {//회원가입 실패 시 로그인 폼으로 이동+메세지
-				mav.setViewName("login/join");
-			}
-			return mav;
+	@RequestMapping(value="/joinOk", method=RequestMethod.POST)
+	public ModelAndView joinOk(LoginDTO dto) {
+		ModelAndView mav = new ModelAndView();
+		
+		int result = service.loginInsert(dto);
+		
+		if(result>0) {//회원가입 성공시 로그인페이지이동
+			mav.addObject("msg","회원가입에 성공했습니다. 로그인 페이지로 이동합니다.");
+			mav.setViewName("redirect:login");
+		}else {//회원가입 실패 시 로그인 폼으로 이동+메세지
+			mav.setViewName("login/join");
 		}
+		return mav;
+	}
 	//==================================================================
 	// 휴대폰 인증    
 	private final SmsService smsService;
@@ -159,64 +177,64 @@ public class LoginController {
 	//==================================================================
 	
 	//아이디 찾기 결과
-		@PostMapping("/findIdResult")
-		public ModelAndView findIdResult(String name, String phone_num) {
-			ModelAndView mav = new ModelAndView();
-				
-			String userid = service.idSelect(name, phone_num);
-			System.out.println(userid);
+	@PostMapping("/findIdResult")
+	public ModelAndView findIdResult(String name, String phone_num) {
+		ModelAndView mav = new ModelAndView();
 			
-			if(userid == null || userid.equals("")) {
-				mav.addObject("result", 0);
-			}else {
-				mav.addObject("result", 1);
-				mav.addObject("userid", userid);
-			}
-			mav.setViewName("login/findIdResult");
-			return mav;
+		String userid = service.idSelect(name, phone_num);
+		System.out.println(userid);
+		
+		if(userid == null || userid.equals("")) {
+			mav.addObject("result", 0);
+		}else {
+			mav.addObject("result", 1);
+			mav.addObject("userid", userid);
 		}
+		mav.setViewName("login/findIdResult");
+		return mav;
+	}
+		
+	//비밀번호 찾기 결과
+	@PostMapping("/findPwdResult")
+	public ModelAndView findPwdResult(String name, String id, String phone_num) {
+		ModelAndView mav = new ModelAndView();
 			
-		//비밀번호 찾기 결과
-		@PostMapping("/findPwdResult")
-		public ModelAndView findPwdResult(String name, String id, String phone_num) {
-			ModelAndView mav = new ModelAndView();
-				
-			try{
-				LoginDTO dto = service.idCount(name, id, phone_num);
-				String userid = dto.getId();
-				
-				mav.addObject("result", 1);
-				mav.addObject("dto", dto);
-			}catch(Exception e) {
-				mav.addObject("result", 0);
-			}
-			mav.setViewName("login/findPwdResult");
-			return mav;
+		try{
+			LoginDTO dto = service.idCount(name, id, phone_num);
+			String userid = dto.getId();
+			
+			mav.addObject("result", 1);
+			mav.addObject("dto", dto);
+		}catch(Exception e) {
+			mav.addObject("result", 0);
 		}
-			
-		//비밀번호 변경
-		@PostMapping("/pwdEditOk")
-		public ResponseEntity<String> pwdEditOk(LoginDTO dto){
-			String htmlTag = "<script>";
-			
-			try {
-				service.pwdUpdate(dto);
-				htmlTag += "alert('비밀번호가 변경되었습니다');";
-				htmlTag += "location.href='login/login';";
-					
-			}catch(Exception e) {
-				e.printStackTrace();
-				htmlTag += "alert('비밀번호 변경에 실패하였습니다');";
-				htmlTag += "history.back();";
-			}
-			htmlTag += "</script>";
+		mav.setViewName("login/findPwdResult");
+		return mav;
+	}
+		
+	//비밀번호 변경
+	@PostMapping("/pwdEditOk")
+	public ResponseEntity<String> pwdEditOk(LoginDTO dto){
+		String htmlTag = "<script>";
+		
+		try {
+			service.pwdUpdate(dto);
+			htmlTag += "alert('비밀번호가 변경되었습니다');";
+			htmlTag += "location.href='login/login';";
 				
-			HttpHeaders headers = new HttpHeaders();
-			headers.setContentType(new MediaType("text", "html", Charset.forName("UTF-8")));
-			headers.add("Content-Type", "text/html; charset=UTF-8");
-				
-			//                                
-			return new ResponseEntity<String>(htmlTag, headers, HttpStatus.OK);
+		}catch(Exception e) {
+			e.printStackTrace();
+			htmlTag += "alert('비밀번호 변경에 실패하였습니다');";
+			htmlTag += "history.back();";
+		}
+		htmlTag += "</script>";
+			
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(new MediaType("text", "html", Charset.forName("UTF-8")));
+		headers.add("Content-Type", "text/html; charset=UTF-8");
+			
+		//                                
+		return new ResponseEntity<String>(htmlTag, headers, HttpStatus.OK);
 
-		}
+	}
 }

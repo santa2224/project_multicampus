@@ -17,5 +17,5 @@ public class CommonDTO {
 	private String sign_date;
 	
 	private String email1;
-	private String eamil2;
+	private String email2;
 }

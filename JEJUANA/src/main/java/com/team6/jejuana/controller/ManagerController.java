@@ -26,7 +26,7 @@ public class ManagerController {
 	ManagerService service;
 	
 	
-	//유저 목록 출력
+	//
 	@GetMapping("/commonmanager1")	//	/board/boardList
 	public ModelAndView comonmanager1(PagingDTO vo) {
 		
@@ -40,7 +40,7 @@ public class ManagerController {
 	}
 	
 	
-	//유저 관리자 변경
+	//
 		@PostMapping("commonUpdate")
 		public ModelAndView commonUpdate(ReviewDTO dto,PagingDTO vo) {
 			int result = service.commonMultiUpdate(dto.getNoList());
@@ -57,7 +57,7 @@ public class ManagerController {
 			return mav;
 		}
 		
-	//유저 세부정보 출력
+	//
 	@GetMapping("/commonmanager2")
 	public ModelAndView usermanager2(int common_no,PagingDTO vo) {
 		ModelAndView mav = new ModelAndView();
@@ -77,13 +77,13 @@ public class ManagerController {
 		
 		if(cnt>0){
 			message = "<script>alert('success!');location.href='commonmanager1';</script>";
-		}else {// 수정실패시 -> 이전페이지(알림)
+		}else {//
 			message = "<script>alert('failure!.');location.href='commonmanager1';</script>";
 		}
 		return message;
 	}
 	
-	//게시글 목록 출력
+	//
 	@GetMapping("/reviewmanager")	//	/board/boardList
 	public ModelAndView reviewmanager(PagingDTO vo) {
 		
@@ -98,10 +98,10 @@ public class ManagerController {
 	}
 	
 		
-	//게시글의 활성화/비활성화 변경
+	//
 	@PostMapping("reviewUpdate")
 	public ModelAndView reviewUpdate(ReviewDTO dto,PagingDTO vo) {
-		int result = service.reviewMultiUpdate(dto.getNoList());//삭제
+		int result = service.reviewMultiUpdate(dto.getNoList());//
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("nowpage",vo.getNowPage());
 		

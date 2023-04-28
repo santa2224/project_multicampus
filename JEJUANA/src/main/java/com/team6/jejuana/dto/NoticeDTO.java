@@ -18,6 +18,12 @@ public class NoticeDTO {
 	private int gonggi;
 	private String nickname;
 	
-	//ë¹„ë°€ê¸€
+	//ºñ¹Ð±Û
 	private boolean secretKey;
+	
+	private int ref; //¿ø±Û¹øÈ£
+	private int lvl; //µé¿©¾²±â
+	private String orgId; //¿ø±ÛÀÛ¼ºÀÚ
+	
+	private int member_type;
 }

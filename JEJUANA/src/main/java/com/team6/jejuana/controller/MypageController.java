@@ -181,7 +181,7 @@ public class MypageController {
 			mav.addObject("email2", email2);
 			
 			mav.addObject("proDTO", pDTO);
-			mav.setViewName("mypage/mypageUser2");
+			mav.setViewName("mypage/mypageUser");
 		}else {
 			mav.addObject("msg", "비밀번호가 일치하지 않습니다.");
 			mav.setViewName("mypage/mypageDelete");
