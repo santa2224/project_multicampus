@@ -142,8 +142,10 @@ public class ReviewController {
 	@GetMapping("/reviewView")
 	public ModelAndView reviewView(int plan_no, HttpSession session) {
 		ReviewDTO dto = service.reviewSelect(plan_no);
+		String userid = (String)session.getAttribute("loginId");
+		
 		//조회 수 증가
-		if(dto.getId() != session.getAttribute("loginId")) {
+		if(!dto.getId().equals(userid)) {
 			service.reviewHitCount(plan_no);
 		}
 		
