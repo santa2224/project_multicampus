@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <link rel="stylesheet" href="/jejuana/css/review.css"/>
+
 <script>
 	function reviewDel(){
 		if(confirm("글을 삭제하시겠습니까?")){
@@ -19,9 +20,9 @@
 		
 		//코스 목록
 		if(dayArr.length != 0){
-			var tag = "<div> ${dto.nickname} 님이 다녀온 " + days + "일 동안의 여행 코스" + "</div>";
+			var tag = "<div class='reviewSubM'> ${dto.nickname} 님이 다녀온 " + days + "일 동안의 여행 코스" + "</div>";
 			for(let i=1; i<=days; i++){ //1,2,3,4
-				tag += "<div>" + i + "일차 : ";
+				tag += "<div>" + i + "일"+ '<i class="fa-solid fa-caret-right"></i>';
 				for(let j=0; j<=courseArr.length; j++){ //1,2,3,4,5,6,7,8,9
 					if(dayArr[j] == i){
 						tag += courseArr[j]+ " ";
@@ -152,14 +153,19 @@
 </script>
 
 <div class="container reviewView_container">
-	<div class="category">여행기록 · ${dto.tag }</div>
+	<div class="category">
+		<i class="fa-regular fa-flag"></i>
+		${dto.tag }
+	</div>
 	<div class="view_sub">${dto.review_subject }</div>
-	<div>
+	<div class="view_NameDate">
 		<dl class="list_data">
     			<dt class="dt_id">by ${dto.nickname}(${dto.id })</dt>
-    			<dt> · </dt>
     			<dt class="dt_date">${dto.writedate }</dt>
-    			<dt class="view_hit">조회 ${dto.review_hit }</dt>
+    			<dt class="view_hit">
+    				<i class="fa-solid fa-street-view"></i>
+					${dto.review_hit }
+				</dt>
     		</dl>
 	</div>
 	
@@ -168,7 +174,11 @@
 	<div id="course"></div>
 	
 	<div class="postbtn" style="word-wrap:break-word;">
-		<a href="reviewJoa?plan_no=${dto.plan_no }" class="joayo">좋아요 ${dto.joayo_hit }</a>
+		<a href="reviewJoa?plan_no=${dto.plan_no }" class="joayo">
+			좋아요
+			<i class="fa-solid fa-heart" style="color: #d11a1a;"></i> 
+			${dto.joayo_hit }
+		</a>
 		<c:if test="${loginStatus!=dto.id }">
 			<a href="reviewBm?target_no=${dto.plan_no }" class="bookmark">북마크</a>
 		</c:if>
@@ -186,10 +196,10 @@
 	<hr>
 	<div>댓글</div>
 	<div>
-			<form method="post" id="commentForm">
+		<form method="post" id="commentForm">
 			<input type="hidden" name="target_no" value="${dto.plan_no }">
 			<textarea name="comment_content" id="comment_content" placeholder="<c:if test= "${loginStatus=='Y' }">내용을 입력해 주세요</c:if><c:if test= "${loginStatus!='Y' }">로그인 후 입력 가능합니다</c:if>"></textarea>
-			<button id="comment_button">댓글 등록</button>
+			<button id="comment_button">등록</button>
 		</form>
 		<ul id="commentList">
 		</ul>

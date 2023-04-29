@@ -166,15 +166,21 @@ $(function(){
 		 		 </div>
 				<ul>
 					<li class="li_tag">${rDTO.tag }</li>
-					<li class="li_sub"><a href="reviewView?plan_no=${rDTO.plan_no }">${rDTO.review_subject }</a></li>
-					<li class="li_id">by ${rDTO.nickname }</li>
-					<li>
-						<i class="fa-solid fa-heart" style="color: #d11a1a;"></i> ${rDTO.joayo_hit }
+					<li class="li_sub">
+						<a href="reviewView?plan_no=${rDTO.plan_no }">${rDTO.review_subject }</a>
 					</li>
+					<li class="li_id">by ${rDTO.nickname }</li>
+					
+					<!-- 조회수 -->
 					<li class="review_hit">
-						<img class="hitImg" src="../img/hit.png">
+						<i class="fa-solid fa-street-view viewCount_icon"></i>
 						 ${rDTO.review_hit }
 					 </li>
+					 
+					 <!-- 좋아요 -->
+					 <li class="heartBox">
+						<i class="fa-solid fa-heart joaCount_icon" style="color: #d11a1a;"></i> ${rDTO.joayo_hit }
+					</li>
 					<li class="review_date">${rDTO.writedate }</li>
 				</ul>
 		  </div>

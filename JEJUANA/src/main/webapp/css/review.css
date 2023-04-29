@@ -31,8 +31,8 @@ a:hover{
 .search{ 
 	border: 1px solid #999999;
 	text-align:center;
-	border-radius:30px;
-	margin-top: 70px;
+	border-radius:5px;
+	margin-top: 30px;
 	float:right;
 	margin-right:5%; 
 	padding:15px 4%;
@@ -86,16 +86,42 @@ dt {
 }
 	
 .review {
-	background-color: #F2F2F2;
 	border: 1px solid transparent;
 	border-radius:5px;
 	margin: 10px;
 	width: 300px;
 	height: 400px;
-	/*display: inline-block;*/
+	box-shadow: 0 0 4px gray;
+	padding:10px;
 	display:inline-grid;
 }
-
+.view_NameDate{
+	width:100%;
+	color:gray;
+}
+.list_data{
+	text-align:right;
+}
+.dt_id{
+	width:100%;
+	display:block;
+	float:right;
+	font-size:13px;
+	margin-bottom:10px;
+}
+.dt_date{
+	width:100%;
+	display:block;
+	float:right;
+	font-size:13px;
+	margin-bottom:10px;
+}
+.view_hit{
+	width:100%;
+	display:block;
+	float:right;
+	font-size:13px;
+}
 .li_sub{
 	font-size:28px;
 }
@@ -117,6 +143,12 @@ dt {
   transform: translate(-50%, -50%);
 }
 
+#heart_con{
+	display:inline-block;
+}
+.heartBox{
+	display:inline-block;
+}
 /*reviewWrite*/
 #reviewForm{
 	font-family: 'GmarketSansMedium';
@@ -209,17 +241,31 @@ th, td{
 	margin-bottom:80px;
 }
 .view_cont{
-	margin: 1% 0;
+	margin: 8% 0;
 	padding: 3% 1%; 
-	border:1px solid transparent;
+	border-top:1px solid #e3e3e3;
+	border-bottom:1px solid #e3e3e3;
 }
 .view_cont img{
 	width:60%;	
 }
-
+.fa-regular{
+	color:#F37321;
+	margin-left:5px;
+}
+.fa-solid{
+	margin:7px;
+	color:#082032;
+}
+.reviewSubM{
+	font-weight:bold;
+	font-size:20px;
+	margin-bottom:20px;
+	color:#082032;
+}
 .view_sub{
-	font-size:45pt;
-	margin: 3% 0;
+	font-size:50px;
+	margin: 1% 0;
 }
 #course{
 	margin: 3% 0;
@@ -229,6 +275,10 @@ th, td{
 }
 .bookmark{
 	float:right;
+}
+#commentForm{
+	display:inline-block;
+	width:100%;
 }
 #comment_content{
 	width:50%;
@@ -249,9 +299,15 @@ th, td{
 .review_date{
 	float:right;
 }
-.review_hit, .review_date{
-	margin-top: 20px;
+.review_hit, .review_date, .heartBox{
+	margin-top: 30px;
 }
 .hitImg{
 	width:15px;
+}
+.viewCount_icon{
+	margin:0;
+}
+.joaCount_icon{
+	margin:0;
 }
