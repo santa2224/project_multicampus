@@ -216,14 +216,19 @@ $(function(){
 		<input type="hidden" id="thumbnail" name="thumbnail" value="">
 		<ul>
 			<div style="text-align:center">
-				<li><input type="text" name="review_subject" id="review_subject" value="${dto.review_subject }" placeholder="제목을 입력하세요. (10자 이내)" maxlength="10"></li>
+				<li>
+					<input type="text" name="review_subject" id="review_subject" value="${dto.review_subject }" placeholder="제목을 입력하세요. (10자 이내)" maxlength="10">
+				</li>
 			</div>
 			<li>
 				<textarea name="review_content" id="review_content"  placeholder="솔직한 리뷰는 사람들에게 도움이 됩니다! * 이미지는 1장 이상 첨부해 주세요">${dto.review_content }</textarea>
 			</li>
 		</ul>
 		<div id="tagli">[태그 선택]</div>
-		<a href="/jejuana/review/reviewList">목록</a>
-		<input type="submit" value="수정하기">
+		<div class="editFix_div">
+			<a class="editFix" id="editFix_A" href="/jejuana/review/reviewList">목록</a>
+			<input class="editFix flex review_fix" type="submit" value="수정하기">
+		</div>
+		
 	</form>
 </div>

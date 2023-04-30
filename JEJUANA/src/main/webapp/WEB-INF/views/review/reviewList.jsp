@@ -16,26 +16,29 @@ $(function(){
 
 <div class="review_header">
 	<div class="page_feature">
-		<p class="topic">여행기록</p><br>
-		<p class="description">다양한 여행 이야기를 만나 보세요</p>
+		<p class="topic">여행기록</p>
+		<p class="description">Travel And Record...</p>
 	</div>
 	<div class="search">
 		<form method="get" id="searchForm" action="reviewList">
-			<select name="searchKey">
+			<select class="review_selectBox" name="searchKey">
 				<option value="review_subject">제목</option>
 				<option value="nickname">닉네임</option>
 				<option value="tag">태그</option>
 			</select>
-			<input type="text" name="searchWord" id="searchWord"/>
-			<input type="submit" value="검색" style="background: transparent; border:none;"/>
+			<input class="review_searchBox" type="text" name="searchWord" id="searchWord"/>
+			<input class="review_searchButton" type="submit" value="검색"/>
 		</form>
 	</div>
 </div>
-<br><br><br><br><br><br><br><br><br><br><br>
- 
+
 <div class="best_list">
-	<div style="font-size:20pt; text-align:center; margin-bottom:1%;">BEST</div>
- 	<swiper-container  class="mySwiper"  pagination="true" pagination-clickable="true" space-between="30" slides-per-view="3">
+	<hr>
+	<div class="best_list_name">
+		<i class="fa-solid fa-arrow-pointer best_click"></i>
+		<b class="click">클릭</b> 폭발하는 여행지
+	</div>
+ 	<swiper-container  class="mySwiper"  pagination="true" pagination-clickable="true" space-between="30" slides-per-view="5">
     	<c:forEach var="bDTO" items="${best }">
 			<swiper-slide>
 				<div class="img-crop">
@@ -43,12 +46,11 @@ $(function(){
 		  				<img class="image" src="${bDTO.thumbnail }">
 		 			</div>
 		 		 </div>
-				<div>
+				<div class="reviewList_data">
 		    		<dl class="list_data">
 		    			<dt class="dt_tag">${bDTO.tag }</dt>
-		    			<dt> · </dt>
 		    			<dt class="dt_joa">
-		    				<i class="fa-solid fa-heart" style="color: #d11a1a;"></i>
+		    				<i class="fa-solid fa-heart best_heart" style="color: #d11a1a;"></i>
 	    				</dt>
 		    			<dt class="dt_cnt">${bDTO.joayo_hit }</dt>
 		    		</dl>
@@ -154,8 +156,8 @@ $(function(){
 		  </swiper-slide>
  	</swiper-container>
 </div> 
-<hr>	
 <div class="reviewBox">
+	<hr>
 	<div class="review_list">
 		<c:forEach var="rDTO" items="${list }">
 			<div class="review">
@@ -185,7 +187,7 @@ $(function(){
 				</ul>
 		  </div>
 		</c:forEach>
-		<div class="review">
+		<!-- <div class="review">
 				<div class="img-crop">
 					<div class="inner">
 		  				<img class="thumbnail" src="${rDTO.thumbnail }">
@@ -344,6 +346,6 @@ $(function(){
 					</li>
 					<li class="review_date">2023-04-15</li>
 				</ul>
-		  </div>
+		  </div> -->
 	</div>
 </div>

@@ -180,7 +180,10 @@
 			${dto.joayo_hit }
 		</a>
 		<c:if test="${loginStatus!=dto.id }">
-			<a href="reviewBm?target_no=${dto.plan_no }" class="bookmark">북마크</a>
+			<a href="reviewBm?target_no=${dto.plan_no }" class="bookmark">
+				<i class="fa-solid fa-bookmark"></i>
+				북마크
+			</a>
 		</c:if>
 	</div>
 	
@@ -195,11 +198,13 @@
 	
 	<hr>
 	<div>댓글</div>
-	<div>
+	<div class="ViewEndBox">
 		<form method="post" id="commentForm">
 			<input type="hidden" name="target_no" value="${dto.plan_no }">
 			<textarea name="comment_content" id="comment_content" placeholder="<c:if test= "${loginStatus=='Y' }">내용을 입력해 주세요</c:if><c:if test= "${loginStatus!='Y' }">로그인 후 입력 가능합니다</c:if>"></textarea>
-			<button id="comment_button">등록</button>
+			<div class="comment_buttonDiv">
+				<button id="comment_button">등록</button>
+			</div>
 		</form>
 		<ul id="commentList">
 		</ul>
