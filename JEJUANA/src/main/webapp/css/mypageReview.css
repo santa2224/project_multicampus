@@ -2,13 +2,11 @@
 	font-weight:bold;
 }
 .reviewTitle{
-	width:18%;
-	border:1px solid navy;
-	font-size:1.5em;
-	margin-top:20px;
-	margin-left:20px;
-	padding:10px;
-	text-align:center;
+	width:100%;
+	font-size:32px;
+	margin-top:25px;
+	margin-left:46px;
+	margin-bottom:10px;
 }
 .reviewList li{
 	float:left;
@@ -26,8 +24,16 @@
 .reviewList li:nth-child(6n-5){
 	margin-left:25px;
 }
+#reviewChange:hover{
+	background:#F37321;
+}
 #reviewChange{
 	line-height:20px;
+	background: #2C394B;
+	color:white;
+	height: 30px;
+	border: none;
+	border-radius:5px;
 }
 #chooseDelR{
 	margin-left:30px;
@@ -44,7 +50,7 @@
 #chooseDelR{
 	font-family: 'GmarketSansMedium';
 	width: 100px;
-	margin-left:25px;
+	margin-left:46px;
 	color:white;
 	height: 40px;
 	border: none;
@@ -54,4 +60,30 @@
 }
 .content_s{
 	font-family: 'GmarketSansMedium';
+}
+.fa-bookmark{
+	color:#2747a1;
+	margin:0;
+	font-size:20px;
+}
+.reviewList{
+	text-align:center;
+	width:96%;
+	margin:auto;
+	/*border-top:1px solid gray;*/
+	box-shadow:0px 0px 4px gray;
+}
+.weight_800{
+	font-weight:800;
+}
+.mypageReview_select{
+	float:left;
+    margin-top: 14px;
+    margin-left: 29px;
+}
+.review_Num_css{
+	text-align:left;
+}
+.review_subject_css{
+	text-align:left;
 }

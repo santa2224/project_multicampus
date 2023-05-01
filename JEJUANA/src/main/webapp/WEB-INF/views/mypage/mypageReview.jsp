@@ -36,22 +36,25 @@
 </script>
 
 <div class="content_s">
-	<div class="reviewTitle">여행기록 관리</div>
+	<div class="reviewTitle">
+		여행기록 관리
+		<i class="fa-solid fa-bookmark"></i>
+	</div>
 	<form method="post" action="/jejuana/mypage/mypageReviewMultiDel" id="delRList">
 		<ul class="reviewList">
-			<li><input type="checkbox" id="allCheckR"/> 전체선택</li>
-			<li>no</li>
-			<li>제목</li>
-			<li>조회수</li>
-			<li>등록일</li>
+			<li><input class="mypageReview_select weight_800" type="checkbox" id="allCheckR"/></li>
+			<li class="review_Num_css weight_800">No</li>
+			<li class="review_subject_css weight_800">제목</li>
+			<li class="weight_800">조회수</li>
+			<li class="weight_800">등록일</li>
 			<li></li>
 			
 			<c:set var="recordNum" value="${vo.totalRecord - (vo.nowPage-1)*vo.onePageRecord }"/>
 			
 			<c:forEach var="dto" items="${list }">
-				<li><input type="checkbox" name="noRList" value="${dto.plan_no }"></li>
-				<li>${recordNum }</li>
-				<li>${dto.review_subject }</li>
+				<li><input class="mypageReview_select" type="checkbox" name="noRList" value="${dto.plan_no }"></li>
+				<li class="review_Num_css">${recordNum }</li>
+				<li class="review_subject_css">${dto.review_subject }</li>
 				<li>${dto.review_hit }</li>
 				<li>${dto.writedate }</li>
 				<li><input type="button" value="수정" id="reviewChange"></li>

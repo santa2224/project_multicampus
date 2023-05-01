@@ -1,24 +1,25 @@
 .planTitle{
 	font-family: 'GmarketSansMedium';
-	width:18%;
-	border:1px solid navy;
-	font-size:1.5em;
-	margin-top:20px;
-	margin-left:20px;
-	padding:10px;
-	text-align:center;
+	width:100%;
+	/*border:1px solid navy;*/
+	font-size:32px;
+	margin-top:25px;
+	margin-left:65px;
+	margin-bottom:10px;
+	/*padding:10px;*/
+	/*text-align:center;*/
+	
 }
 #allCheckP{
 	font-family: 'GmarketSansMedium';
-	margin-left:20px;
-	margin-top:10px;
 }
 .planList{
 	width:90%;
-	border:1px solid navy;
-	margin:25px auto;
+	margin:15px auto;
 	height:100px;
 	overflow:hidden;
+	box-shadow:0px 0px 4px gray;
+	background:rgb(255,255,255,0.6);
 }
 .planList>ul{
 	font-family: 'GmarketSansMedium';
@@ -55,7 +56,9 @@
 	font-weight:bold;
 	margin-bottom:10px;
 }
-
+.planReviewY:hover{
+	background:#F37321;
+}
 .planReviewY{
 	font-family: 'GmarketSansMedium';
 	width: 90px;
@@ -78,7 +81,7 @@
 	width:100%;
 	margin:0 auto;
 	margin-left:40%;
-	margin-top:20px;
+	margin-top:5px;
 	margin-bottom:20px;
 }
 .pagingDivP>ul{
@@ -95,6 +98,9 @@
 body>div{
 	height:100%;
 }
+#chooseDelP:hover{
+	background:#F37321;
+}
 #chooseDelP{
 	font-family: 'GmarketSansMedium';
 	width: 100px;
@@ -105,6 +111,9 @@ body>div{
 	background: #2C394B;
 	border-radius:5px;
 	padding-top:5px;
+}
+#planChahge:hover{
+	background:#F37321;
 }
 #planChahge{
 	font-family: 'GmarketSansMedium';
@@ -118,8 +127,10 @@ body>div{
 }
 #acp{
 	font-family:'GmarketSansMedium';
-	margin-left:45px;
+	margin-left:63px;
 }
-#delPList{
-	background:url(../img/mypageBack.png)
+.fa-plane-circle-check{
+	color:#2747a1;
+	margin:0;
+	font-size:25px;
 }

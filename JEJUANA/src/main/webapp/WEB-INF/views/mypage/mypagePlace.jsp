@@ -30,7 +30,6 @@
 						<div>먹거리와 생활용품을 판매하는, 제주에서 가장 큰 시장</div>
 					</li>
 						<li style="font-size:14px;">
-							별점 :  
 							<i class="fa-solid fa-star" style="color: #f37321;"></i>
 							4.6
 						</li>

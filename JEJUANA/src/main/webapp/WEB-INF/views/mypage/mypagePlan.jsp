@@ -37,7 +37,10 @@
 </script>
 
 <div class="content_s">
-		<div class="planTitle">나의 일정 관리</div>
+		<div class="planTitle">
+			나의 일정 관리
+			<i class="fa-solid fa-plane-circle-check"></i>
+		</div>
 		<form method="post" action="/jejuana/mypage/mypagePlanMultiDel?nowPage=${vo.nowPage }" id="delPList">
 		<div id="acp">
 			<input type="checkbox" id="allCheckP"/> 전체선택

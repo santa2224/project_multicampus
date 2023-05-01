@@ -116,21 +116,22 @@
 			<c:forEach var="proDTO" items="${proDTO }">
 				<div>	
 					<p>아이디</p>
-					<input type="text" name="id" id="id" value="${proDTO.id }" readonly/>
+					<input type="text" name="id" id="id" value="${proDTO.id }" readonly disabled/>
 				</div>
 				<div>
 					<p>비밀번호</p>
 					<input type="password" name="password" id="password" minlength="8" maxlength="20" placeholder="비밀번호를 입력해주세요."/>
-					<span style="font-size:12px;display:block; margin-top:5px;">비밀번호는 8~20자의 영대소문자, 특수기호必로 사용하고, 연속되는 숫자,공백문자는 사용 불가합니다.</span>
+					<span class="mypage_pwdFont">비밀번호는 8~20자의 영대소문자, 특수기호必로 사용하고, 연속되는 숫자,공백문자는 사용 불가합니다.</span>
 				</div>
-				<div style="width:200%">
-					<p style="width:25%">휴대전화</p>
+				
+				<div>
+					<p>휴대전화</p>
 					<input type="text" name="phone_num" id="phone_num" placeholder="-를 제외하고 입력하세요." value="${proDTO.phone_num }">
 					<input type="button" name="telNumGet" id="telNumGet" value="휴대폰인증">
 				</div>
 				</c:forEach>
-				<div style="width:200%">
-					<p style="width:25%">이메일</p>
+				<div>
+					<p>이메일</p>
 					<input type="text" name="email1" id="email1" value="${email1 }"> @
 					<input type="text" name="email2" id="email2" placeholder="직접입력" value="${email2 }">
 					<select class="selectBox1" name="email2_box" id="email2_box">
@@ -170,7 +171,7 @@
 					<p id="p1">정말 탈퇴하시겠습니까?</p><br/>
 					<p id="p2">탈퇴하시려면 비밀번호를 입력해주세요.</p>
 				</div>
-				<div style="text-align:center">
+				<div>
 					<input type="password" name="password" id="pwdC"/>
 				</div>
 				<div class="btnC">

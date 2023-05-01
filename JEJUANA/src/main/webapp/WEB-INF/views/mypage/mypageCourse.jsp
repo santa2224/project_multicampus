@@ -30,10 +30,9 @@
 					<li style="font-size:14px;">#제주도#함덕#애월#뚜벅이</li>
 					<li style="font-size:14px;">일정: 3박4일</li>
 					<li id="jo">
-						<div>좋아요</div>
 						<!-- 하트 -->
 						<i class="fa-solid fa-heart" style="color: #d11a1a;"></i>
-						<div>: 23</div>
+						<div>23</div>
 					</li>
 					<li>
 						<input class="CourseBtn_view" type="button" value="코스보기"/>

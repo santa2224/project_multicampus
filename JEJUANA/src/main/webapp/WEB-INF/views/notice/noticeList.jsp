@@ -34,7 +34,9 @@
 			
 		<c:forEach var="gDTO" items="${gList }">
 			<li style="font-weight:bold;">공지</li>
-			<li style="font-weight:bold;"><a href="noticeView?notice_no=${gDTO.notice_no }">${gDTO.notice_subject }</a></li>
+			<li style="font-weight:bold;">
+				<a href="noticeView?notice_no=${gDTO.notice_no }">${gDTO.notice_subject }</a>
+			</li>
 			<li>${gDTO.nickname }</li>
 			<li>${gDTO.notice_date }</li>
 			<li>${gDTO.notice_hit }</li>
