@@ -45,6 +45,11 @@ public class BookMarkController {
 		dto.setBook_name(book_name);
 		dto.setBook_addr(book_addr);
 		dto.setBook_type(book_type);
+		
+		//별점추기
+		double rate = service.bookmarkRate(dto.getBook_name());
+		dto.setRate(rate);
+		
 		dto.setId((String)session.getAttribute("loginId"));
 		String htmlTag = "<script>";
 		

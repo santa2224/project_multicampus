@@ -65,26 +65,32 @@ public class PlannerController  {
         planDTO.setDays(days);
         planDTO.setId((String) session.getAttribute("loginId"));
         int result = service.planUpdate(planDTO);
+        int c_result = 0;
+        String s_result="";
+        if(result>0) {
 
-        List<CourseDTO> list = new ArrayList<CourseDTO>();
+            List<CourseDTO> list = new ArrayList<CourseDTO>();
 
-        JSONArray jArray = new JSONArray(schedule);
-        System.out.println(jArray.get(0).getClass().getSimpleName());
-        for (int i = 0; i < jArray.length(); i++) {
-            JSONObject course = jArray.getJSONObject(i);
-            CourseDTO dto = new CourseDTO();
-            dto.setPlan_no(plan_no);
-            dto.setPlace_no(course.getInt("place_no"));
-            dto.setDays_order(course.getInt("days_order"));
-            dto.setCourse_order(course.getInt("course_order"));
-            list.add(dto);
+            JSONArray jArray = new JSONArray(schedule);
+            System.out.println(jArray.get(0).getClass().getSimpleName());
+            for (int i = 0; i < jArray.length(); i++) {
+                JSONObject course = jArray.getJSONObject(i);
+                CourseDTO dto = new CourseDTO();
+                dto.setPlan_no(plan_no);
+                dto.setPlace_no(course.getInt("place_no"));
+                dto.setDays_order(course.getInt("days_order"));
+                dto.setCourse_order(course.getInt("course_order"));
+                list.add(dto);
+            }
+            int del_result = service.courseDel(plan_no);
+            c_result = service.courseSave(list);
+        }else{
+            s_result = planSave(plan_num, plan_name, start_date, end_date, days, schedule, session);
         }
-        int del_result = service.courseDel(plan_no);
-        int c_result = service.courseSave(list);
 
 
 
-        return ""+c_result;
+        return s_result+c_result;
     }
 
     @PostMapping(value = "/planSave",  produces = "application/text; charset=utf-8")
@@ -276,4 +282,6 @@ public class PlannerController  {
         }
         return value;
     }
+
+
 }

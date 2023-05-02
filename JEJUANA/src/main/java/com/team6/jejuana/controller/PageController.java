@@ -23,5 +23,10 @@ public class PageController {
 		return mav;
 	}
 	
-
+	@GetMapping("/policy")
+	public ModelAndView test123() {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("login/policy");
+		return mav;
+	}
 }

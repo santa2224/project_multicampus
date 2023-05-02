@@ -1,5 +1,7 @@
 package com.team6.jejuana.dto;
 
+import java.util.List;
+
 public class BookMarkDTO {
 	private int book_no;
 	private String book_name;
@@ -8,7 +10,9 @@ public class BookMarkDTO {
 	private String id;
 	private int targer_no;
 	private String book_addr;
-	
+
+	private List<Integer> noCList;
+	private double rate;
 
 	@Override
 	public String toString() {
@@ -57,6 +61,18 @@ public class BookMarkDTO {
 	}
 	public void setTarger_no(int targer_no) {
 		this.targer_no = targer_no;
+	}
+	public List<Integer> getNoCList() {
+		return noCList;
+	}
+	public void setNoCList(List<Integer> noCList) {
+		this.noCList = noCList;
+	}
+	public double getRate() {
+		return rate;
+	}
+	public void setRate(double rate) {
+		this.rate = rate;
 	}
 	
 	

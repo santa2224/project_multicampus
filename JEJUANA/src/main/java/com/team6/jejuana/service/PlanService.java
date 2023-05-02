@@ -20,4 +20,5 @@ public interface PlanService {
     public double takeRate(int place_no);
     public int checkRate(int place_no);
 
+
 }

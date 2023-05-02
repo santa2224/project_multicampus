@@ -10,11 +10,11 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class PlanServiceImpl implements PlanService{
+public class PlanServiceImpl implements PlanService {
     @Autowired
     PlanDAO dao;
 
-    public PlanServiceImpl(PlanDAO dao){
+    public PlanServiceImpl(PlanDAO dao) {
         this.dao = dao;
     }
 
