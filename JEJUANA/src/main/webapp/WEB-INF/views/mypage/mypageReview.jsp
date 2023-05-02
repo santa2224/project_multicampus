@@ -32,17 +32,16 @@
 			}
 		});
 		
+		
+		
 	});
 </script>
 
 <div class="content_s">
-	<div class="reviewTitle">
-		여행기록 관리
-		<i class="fa-solid fa-bookmark"></i>
-	</div>
+	<div class="reviewTitle">여행기록 관리</div>
 	<form method="post" action="/jejuana/mypage/mypageReviewMultiDel" id="delRList">
 		<ul class="reviewList">
-			<li><input class="mypageReview_select weight_800" type="checkbox" id="allCheckR"/></li>
+			<li><input class="mypageReview_select weight_800" type="checkbox" id="allCheckR"/> </li>
 			<li class="review_Num_css weight_800">No</li>
 			<li class="review_subject_css weight_800">제목</li>
 			<li class="weight_800">조회수</li>
@@ -52,12 +51,12 @@
 			<c:set var="recordNum" value="${vo.totalRecord - (vo.nowPage-1)*vo.onePageRecord }"/>
 			
 			<c:forEach var="dto" items="${list }">
-				<li><input class="mypageReview_select" type="checkbox" name="noRList" value="${dto.plan_no }"></li>
+				<li><input class="mypageReview_select" type="checkbox" id="noRList" name="noRList" value="${dto.plan_no }"></li>
 				<li class="review_Num_css">${recordNum }</li>
 				<li class="review_subject_css">${dto.review_subject }</li>
 				<li>${dto.review_hit }</li>
 				<li>${dto.writedate }</li>
-				<li><input type="button" value="수정" id="reviewChange"></li>
+				<li><input type="button" value="수정" id="reviewChange" onclick="location.href='mypageReviewEdit?plan_no=${dto.plan_no}'"></li>
 				
 				<c:set var="recordNum" value="${recordNum-1 }"/>
 			</c:forEach>

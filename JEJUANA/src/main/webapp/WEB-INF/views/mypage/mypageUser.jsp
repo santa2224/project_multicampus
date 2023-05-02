@@ -123,7 +123,6 @@
 					<input type="password" name="password" id="password" minlength="8" maxlength="20" placeholder="비밀번호를 입력해주세요."/>
 					<span class="mypage_pwdFont">비밀번호는 8~20자의 영대소문자, 특수기호必로 사용하고, 연속되는 숫자,공백문자는 사용 불가합니다.</span>
 				</div>
-				
 				<div>
 					<p>휴대전화</p>
 					<input type="text" name="phone_num" id="phone_num" placeholder="-를 제외하고 입력하세요." value="${proDTO.phone_num }">
@@ -147,7 +146,7 @@
 			<c:forEach var="proDTO" items="${proDTO }">
 				<div>
 					<p>이름</p>
-					<input type="text" name="name" id="username" value="${proDTO.name }" readonly/><br>
+					<input type="text" name="name" id="username" value="${proDTO.name }" readonly disabled/><br>
 				</div>
 				<div>
 					<p>닉네임</p>
@@ -171,7 +170,7 @@
 					<p id="p1">정말 탈퇴하시겠습니까?</p><br/>
 					<p id="p2">탈퇴하시려면 비밀번호를 입력해주세요.</p>
 				</div>
-				<div>
+				<div style="text-align:center">
 					<input type="password" name="password" id="pwdC"/>
 				</div>
 				<div class="btnC">

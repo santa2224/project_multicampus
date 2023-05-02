@@ -8,13 +8,47 @@
 	margin-bottom:10px;
 	/*padding:10px;*/
 	/*text-align:center;*/
-	
 }
 #allCheckP{
 	font-family: 'GmarketSansMedium';
+	/*margin-left:20px;
+	margin-top:10px;*/
+}
+#allCheckP{
+	margin-left:10px;
+}
+#allCheckP{
+	border-radius:50px;
+	border:1px solid gray;
+	appearance: none;
+    cursor: pointer;
+    transition: background 0.2s;
+    width:12px;
+    height:12px;
+}
+#allCheckP:checked{
+	background:#2C394B;
+	border:none;
+}
+#noPList{
+	margin-left:10px;
+}
+#noPList{
+	border-radius:50px;
+	border:1px solid gray;
+	appearance: none;
+    cursor: pointer;
+    transition: background 0.2s;
+    width:12px;
+    height:12px;
+}
+#noPList:checked{
+	background:#2C394B;
+	border:none;
 }
 .planList{
 	width:90%;
+	/*border:1px solid navy;*/
 	margin:15px auto;
 	height:100px;
 	overflow:hidden;
@@ -112,10 +146,10 @@ body>div{
 	border-radius:5px;
 	padding-top:5px;
 }
-#planChahge:hover{
+#planChange:hover{
 	background:#F37321;
 }
-#planChahge{
+#planChange{
 	font-family: 'GmarketSansMedium';
 	width: 50px;
 	margin-left:60px;
@@ -127,10 +161,13 @@ body>div{
 }
 #acp{
 	font-family:'GmarketSansMedium';
-	margin-left:63px;
+	margin-left:45px;
 }
 .fa-plane-circle-check{
 	color:#2747a1;
 	margin:0;
 	font-size:25px;
+}
+#PlanBtn{
+	padding: 6px 20px;
 }

@@ -3,23 +3,22 @@
 
 <div class="screen">
 	<div class="category1">
-		<button>회원관리</button>
-		<button>게시글관리</button>
+		관리자 페이지
 	</div>
 	<div class="section">
 		<div class="section1">
-			<div class="section1_1"> 여행목록 관리 </div>
+			<div class="section1_1"><img src="/jejuana/img/post.png" class="section1_1_2"> <p class="section1_1_1">여행목록 관리</p> </div>
 			<div class="category2">
-				<button>게시글관리</button>
-				<button>여행기록 관리</button>
+				<button class="category2_1" onclick="location.href='commonmanager1'">회원관리</button>
+				<button class="category2_1" onclick="location.href='reviewmanager'">게시글 관리</button>
 			</div>	
 		</div>
 		
 		<div class="section2">
-			<div class="section2_1"> 여행목록을 관리할수 있습니다. </div>	
-			<span>| 여행목록 검색</span>
+			<div class="section2_1"> <p class="section2_1_2">여행목록을 관리 할 수 있습니다. </p></div>	
+			<span class="section2_1_1">| 여행목록 검색</span> 
 				<div class="section2_2">
-					<div class="section2_3">검색어</div>
+					<div class="section2_3"><p class="section2_3_1">검색어</p></div>
 					<div class="section2_4">
 					<form method="get" id="searchForm" action="reviewmanager">
 						<select id="searchKey" name="searchKey">
@@ -28,7 +27,7 @@
 						    <option value="r.id">아이디</option>
 						</select>
 							<input type="text" name="searchWord" id="searchWord"placeholder="검색...."/>
-							<input type="submit" style="margin-left:35px;" value="검색"/>
+							<input type="submit" class="section2_5" value="검색"/>
 						</form>
 					</div>
 				</div>
@@ -36,7 +35,7 @@
 				<form method="post" action="/jejuana/manager/reviewUpdate" id="upList">
 					<div class="section3">
 						<table id="tb" class="tsearch">
-							<thead>
+							<thead id="st">
 								<tr>
 									<td><input type="checkbox" id="allCheck"></td>
 									<td>번호</td>
@@ -68,7 +67,7 @@
 				</form>
 					
 			<div class="searchselect">
-					<ul>
+					<ul class="section3_1">
 						<c:if test="${vo.nowPage==1 }">
 							<li>&lt;</li>
 						</c:if>
@@ -107,7 +106,6 @@
 	</div>
 
 </div>
-<footer style="width:100%; height:74px; background:antiquewhite; text-align:center; position:fixed; bottom:0; left:0"><h1>footer</h1></footer>
 
 
 <script>

@@ -84,6 +84,12 @@
     margin-left: 4px;
  }
 #modalC {
+    font-family: 'GmarketSansMedium';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+#modalC {
  	width: 100%;
     height: 100%;
     position: absolute;
@@ -95,8 +101,8 @@
     justify-content: center;
 }
 .modal-window {
-   	background: gray;
-    box-shadow: 0 8px 32px 0 #ddd;
+   	background: #ddd;
+    /*box-shadow: 0 8px 32px 0 #ddd;*/
     backdrop-filter: blur( 13.5px );
     -webkit-backdrop-filter: blur( 13.5px );
     border-radius: 10px;
@@ -126,10 +132,15 @@
  	margin-top:20px;
 }
 .btnC input{
-	font-size:12px;
-	padding:6px;
-	height:31px;
 	width:200px;
+ 	font-size:13px;
+	color: white;
+	height:30px;
+	border:none;
+	background:#2C394B;
+	padding-top:7px;
+    border-radius: 4px;
+    margin-left: 4px;
 }
 .close-area{
  	padding-top:10px;

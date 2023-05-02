@@ -5,17 +5,17 @@
 
 <div>
 	<div class="aside">
-	<div class="nickname">
-		<div>
-			<c:forEach var="proDTO" items="${proDTO }">
-				<i class="fa-solid fa-user-pen"></i>
-				<span>
-					${proDTO.nickname }
-				</span>
-				<p style="color:gray">${proDTO.id }</p>
-			</c:forEach>
-		</div>
-	</div>	
+		<div class="nickname">
+			<div>
+				<c:forEach var="proDTO" items="${proDTO }">
+					<i class="fa-solid fa-user-pen"></i>
+					<span>
+						${proDTO.nickname }
+					</span>
+					<p style="color:gray">${proDTO.id }</p>
+				</c:forEach>
+			</div>
+		</div>	
 		<div class="menu">
 			<div class="mypage">마이페이지</div>
 			<ul class="mypageList">

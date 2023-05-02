@@ -20,9 +20,9 @@
     let polylines = []; // 경로 담을 배열
     let colors = [
         '#FFAE00', '#0022ff', '#aa00ff', '#ff003b',
-        '#00ff0d', '#c8ff00', '#36fcff', '#480148',
-        '#1f2c70', '#1f702a', '#42ff5c', '#42b7ff',
-        '#424bff', '#ff42e6'
+        '#00ff0d', '#424bff', '#36fcff', '#480148',
+        '#1f2c70', '#1f702a', '#ff42e6', '#42ff5c',
+        '#42b7ff', '#c8ff00'
     ];
     let moreList = document.createElement("div");
     moreList.id = "moreList";
@@ -36,7 +36,7 @@
     let enddate;    // 종료 날짜를 담을 Date 객체
     let days = 0;
     $(function () {
-    // 두 날짜의 차이를 담을 변수
+        // 두 날짜의 차이를 담을 변수
         // 저장 눌렀을 때 플랜 이름 있는지 확인
         $("#modalopen").trigger("click");
         $("#newPlannerChoose").click(function () {
@@ -55,6 +55,7 @@
                     console.log(e.responseText)
                 }
             })
+
             function showPlanList(data) {
                 $(data).each(function (i, dto) {
                     let planEl = document.createElement("div"),
@@ -94,13 +95,19 @@
                     for (let i = 1; i <= days; i++) {
                         let schedule = "";
                         let days_order = "day" + i
+                        let count = 0;
                         $(result).each(function (idx, dto) {
+
                             if (dto.days_order == i) {
                                 schedule += "&places=" + dto.place_no;
+                                count++;
                             }
                         });
                         console.log(days, i, days_order);
-                        schedule_setup(schedule, days_order);
+                        if (count > 0) {
+                            schedule_setup(schedule, days_order);
+                        }
+
                     }
                 }, error: function (e) {
                     console.log(e.responseText)
@@ -111,8 +118,8 @@
             $("#choose_modal_close").trigger("click");
             document.getElementById("save").innerText = '수정';
         })
-        $(document).on("click", "#total_schedule", function(){
-            $(document.getElementsByClassName("schedule_body")).each(function(idx, dto){
+        $(document).on("click", "#total_schedule", function () {
+            $(document.getElementsByClassName("schedule_body")).each(function (idx, dto) {
                 $(dto).trigger("change");
             })
         })
@@ -138,6 +145,7 @@
                 console.log(days);
             }
         });
+
         function colorSetup(days) {
             random_color = [];
             var num;
@@ -155,10 +163,14 @@
             });
             return random_color;
         }
+
         $(document).on("click", "#save", function () {
             if ($("#plan_name").val() === "") {
                 alert("플랜 이름을 작성해주세요");
                 return false;
+            }
+            if(sessionStorage.getItem("loginId")==""){
+                alert()
             }
             savePlan.plan_num = $("#plan_no").val();
             savePlan.plan_name = $("#plan_name").val();
@@ -178,9 +190,9 @@
                 }
             }
             let url = '';
-            if($("#plan_no").val()==""){
+            if ($("#plan_no").val() == "") {
                 url = 'planSave';
-            }else{
+            } else {
                 url = "planUpdate";
             }
             savePlan.schedule = JSON.stringify(schedule);
@@ -190,17 +202,24 @@
                 type: "POST",
                 success: function (result) {
                     console.log(result);
+                    if (result > 0) {
+                        alert("저장이 완료되었습니다.");
+                        location.href = "/jejuana";
+                    }else{
+
+                    }
                 }, error: function (e) {
                     console.log(e.responseText);
                 }
             })
         });
+
         function showSchedule(days) {
             colorSetup(days);// 시작일과 종료일의 차이로 여행 날짜수 구해준값을 파라미터로 넣고
             for (let i = 1; i <= days; i++) {// 날수+1 번 반복해서 코스를 짤 수 있는 블럭을 넣어줌
                 let tag = "<div class='schedule_detail'>";
                 tag += "<input type='hidden' class='days_order' value='" + i + "'/>";
-                tag += "<div class='schedule_header'><div class='day' style='border-bottom-color:" + random_color[i - 1] + "' >Day" + i + "</div></div>";
+                tag += "<div class='schedule_header'><div class='day' style='border-color:" + random_color[i - 1] + "' >Day" + i + "</div></div>";
                 tag += "<div class='schedule_body' id='day" + i + "'></div>";
                 tag += "<div class='schedule_footer'>";
                 tag += "<div class='placeAdd' id='" + i + "'>";
@@ -209,6 +228,7 @@
                 $("#schedule").append(tag);
             }
         }
+
         $(document).on("click", ".closeModal", function () { //모달 닫는 버튼
             $("#myModal").css("display", "none");
         });
@@ -226,9 +246,15 @@
         // 모달 내 여행지 목록에서 여행지 선택 버튼을 눌렀을 때
         $(document).on("click", ".btn-primary", function () { //선택을 누르면
             let selected = $(this).parent().parent();
+            selected[0].firstChild.className="selected_place_item";
+            selected.find(".selected_place_name").css("display", "block");
             $("#selectedPlace").append(selected[0].firstChild); //선택된 여행지를 selectedPlace 박스에 사진으로 올린다.
+
             selected.css("display", "none"); //선택된 여행지를 목록에서 안보이게 한다.
         });
+
+        /*                               1111111111111111111111111111111                               */
+
         function placeList(searchWord, pageNo) {  //장소를 DB에서 불러와서 보여주는 함수
             let url = "placeSelectList";
             let data = "&searchWord=" + searchWord + "&pageNo=" + pageNo;
@@ -246,6 +272,7 @@
                 }
             })
         }
+
         function bookmarkList(searchWord, pageNo) {  //장소를 DB에서 불러와서 보여주는 함수
             let url = "bookmarkList";
             let data = "&searchWord=" + searchWord + "&pageNo=" + pageNo;
@@ -264,22 +291,47 @@
                 }
             })
         }
+
         function showplaces(data) {
             $("#moreList").remove();
             $(data).each(function (idx, dto) {
                 let tag = "<div class='place_container'>";
                 tag += "<div class='place_item'>";
-                tag += "    <input type='hidden' value='" + dto.place_no + "'/> ";
-                tag += "    <img src='<%=request.getContextPath()%>/img/" + dto.thumbnail + "' width='70' height='70'/></div>";
+                tag += "    <input type='hidden' class='place_no' value='" + dto.place_no + "'/> ";
+                tag += "    <input type='hidden' class='place_lat'  value='" + dto.latitude + "'/> ";
+                tag += "    <input type='hidden' class='place_lon'  value='" + dto.longitude + "'/> ";
+                tag += "    <img src='<%=request.getContextPath()%>/img/places/" + dto.thumbnail + ".jpg' width='70' height='70'/>";
+                tag += "    <figcaption class='selected_place_name' >"+ dto.place_name + "</figcaption></div>";
                 tag += "<div class='place_item'>";
                 tag += "    <span style='font-size: 1.2em'>" + dto.place_name + "</span></div>";
                 tag += "<div class='place_item'>" + dto.content + "</div>";
-                tag+= "<div class='place_item'><img class='star' src='<%=request.getContextPath()%>/img/star.png' width='20' height='20'/>   "+dto.rate+"</div>";
+                tag += "<div class='place_item'><img class='star' src='<%=request.getContextPath()%>/img/star.png' width='20' height='20'/>   " + dto.rate + "</div>";
                 tag += "<div class='place_item'>";
                 tag += "    <button type='button' class='btn btn-primary'>선택</button></div>";
                 $("#placeBox").append(tag);
             });
         }
+
+        let temp_marker = new kakao.maps.Marker();
+        $(document).on("mouseover", ".place_container", function () {
+            let temp_lat = $(this).find(".place_lat").val()
+            let temp_lon = $(this).find(".place_lon").val()
+            temp_marker.setPosition(new kakao.maps.LatLng(temp_lat, temp_lon));
+            show_temp_marker(temp_marker)
+        });
+
+        $(document).on("mouseout", ".place_container", function () {
+            del_temp_marker(temp_marker)
+        });
+
+        function show_temp_marker(marker) {
+            marker.setMap(map);
+        }
+
+        function del_temp_marker(marker) {
+            marker.setMap(null);
+        }
+
         $(document).on("keypress", "#searchWord", function () { // 검색어를 입력하고 enter를 치면 검색되도록하는 이벤트
             if (event.keyCode == 13) {
                 $("#placeBox").html("");
@@ -308,7 +360,7 @@
             // 저장을 누르면
             // 1. selectedPlace에 옮겨진 장소를 plannerbody의 일정부분에 옮기기
             let selectedNo = "";
-            let selectedPlace = $("#selectedPlace input");
+            let selectedPlace = $("#selectedPlace .place_no");
             for (let i = 0; i < selectedPlace.length; i++) {
                 selectedNo += "&places=" + selectedPlace[i].value
             }
@@ -325,6 +377,7 @@
             // 3. modal을 닫는다.
             $("#myModal").css("display", "none");
         });
+
         function schedule_setup(selectedNo, day) {
             let target = document.getElementById(day); // 해당 .schedule_body  자리
             console.log(target);
@@ -341,7 +394,7 @@
                         tag += "<input type='hidden' class='course_order' name='course_order'  value='" + (i + 1 + a) + "'/>";
                         tag += "<div class='place_dis'></div>";
                         tag += "<div class='place_name'>" + dto.place_name + "</div>";
-                        tag += "<div class='place_del " + day + "'>삭제</div>";
+                        tag += "<button class='place_del " + day + "'><img src='<%=request.getContextPath()%>/img/place_delete2.jpg' width='30'/></button>";
                         tag += "<input type='hidden' class='place_no' name='place_no' value='" + dto.place_no + "'/>";
                         tag += "<input class='lat' type='hidden' value='" + dto.latitude + "'/>";
                         tag += "<input class='lon'  type='hidden' value='" + dto.longitude + "'/></div>";
@@ -352,6 +405,7 @@
                 }
             })
         }
+
         $("#selectedPlace").sortable();
         $(document).on("change", ".schedule_body", function () {
             latlon = [];
@@ -361,7 +415,9 @@
                 lat.push($(place).find(".lat").val());
                 lon.push($(place).find(".lon").val())
                 latlon.push(new kakao.maps.LatLng(lat[i], lon[i]))
-                if (i > 0) {
+                if (i == 0) {
+                    $(place).find(".place_dis").html("");
+                } else {
                     let dis = parseInt(distance(lat[i - 1], lon[i - 1], lat[i], lon[i]));
                     $(place).find(".place_dis").html("");
                     $(place).find(".place_dis").append(dis + "KM");
@@ -407,15 +463,46 @@
                 bookmarkList(searchWord, pageNo);
             }
         });
+
+        $("#cancel").click(function () {
+            console.log("dd")
+            if (confirm("저장하지 않은 자료는 사라집니다. 취소하시겠습니까?")) {
+
+                location.href = "/jejuana";
+            }
+        })
+
+        $('#placeBox').on('scroll', function(){
+            var scrollTotal = document.querySelector('#placeBox').scrollTop;
+            var scrollpresent = document.querySelector('#placeBox').scrollHeight;
+            var documentHeight = document.querySelector('#placeBox').clientHeight;
+            if (scrollTotal + documentHeight > scrollpresent - 10) {
+                console.log("clicked");
+                pageNo++;
+                let searchWord = $("#searchWord").val();
+                if ($("#searchWord").attr("class") == "placeList") {
+                    placeList(searchWord, pageNo);
+                }
+                if ($("#searchWord").attr("class") == "bookmarkList") {
+                    bookmarkList(searchWord, pageNo);
+                }
+            }
+        });
+        $("#gohome").click(function(){
+            if(confirm("저장하지 않은 데이터는 복구할 수 없습니다. 홈으로 이동하시겠습니까?")){
+                location.href="/jejuana";
+            }
+
+        })
     });
 </script>
-
+<%--                 222222222222222222222222222222222222222                       --%>
 <div id="planner_body">
     <ul>
         <li>
             <div class="label">플랜이름:</div>
             <input type="text" class="ib" id="plan_name" name="plan_name" placeholder="플랜 이름"/></li>
-            <input type="hidden" id="plan_no" value=""/>
+        <input type="hidden" id="plan_no" value=""/>
         <li>
             <div class="label">일정 :</div>
             <input type="date" id="start_date" name="start_date" value=""/>
@@ -430,16 +517,18 @@
 
 
         </li>
+        <li>
+            <div id="buttons">
+                <button type="button" id="save">저장</button>
+                <button type="button" id="cancel">취소</button>
+            </div>
+        </li>
     </ul>
     <br/>
 
-    <div id="buttons">
-        <button type="button" id="save">저장</button>
-        <button type="button" id="cancel">취소</button>
-    </div>
 
-
-    <div class="myModal" id="myModal"> <!-- 모달로 쓸 블럭 -->
+    <div class="myModal" id="myModal"> 
+    	<!-- 모달로 쓸 블럭 -->
         <input type="hidden" id="day" value=""/>
         <div id="modalheader">
             <div id="place_tab">여행지</div>
@@ -474,15 +563,14 @@
     </div>
 </div>
 <div id="map"></div>
-<div id="planList">
-    <div id="planListBody">
-    </div>
-</div>
+<button id="gohome" type="button"> 메인페이지</button>
+
 
 <span style="display: none">
 <input type="button" id="modalopen" data-bs-toggle="modal" data-bs-target="#chooseModal" value="모달열기"/>
 </span>
 <div class="modal fade modal-dialog-centered" id="chooseModal">
+
     <div class="modal-dialog ">
         <div class="modal-content">
 
@@ -511,9 +599,12 @@
         </div>
 
     </div>
+    <div id="planList">
+        <div id="planListBody">
+        </div>
+    </div>
 
 </div>
-
 
 
 <script>
@@ -530,8 +621,9 @@
     // 지도 확대 축소를 제어할 수 있는  줌 컨트롤을 생성합니다
     let zoomControl = new kakao.maps.ZoomControl();
     map.addControl(zoomControl, kakao.maps.ControlPosition.LEFT);
+
     function displayMarker(position, i) {
-        var imageSrc = '<%=request.getContextPath()%>/img/marker.png', // 마커이미지의 주소입니다
+        var imageSrc = '<%=request.getContextPath()%>/img/marker1.png', // 마커이미지의 주소입니다
             imageSize = new kakao.maps.Size(40, 44), // 마커이미지의 크기입니다
             imageOption = {offset: new kakao.maps.Point(20, 44)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
 // 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
@@ -551,11 +643,12 @@
         var customOverlay = new kakao.maps.CustomOverlay({
             position: position,
             content: content,
-            yAnchor: 1.25
+            yAnchor: 1.15
         });
         customOverlay.setMap(map);
         customOverlays.push(customOverlay);
     }
+
     function deleteMarkers() {
         for (var i = 0; i < markers.length; i++) {
             markers[i].setMap(null);
@@ -564,23 +657,27 @@
         markers = [];
         customOverlays = [];
     }
+
     function showAllMarkers() {
         for (var i = 0; i < markers.length; i++) {
             markers[i].setMap(map);
         }
     }
+
     function deletePolylines() {
         for (var i = 0; i < polylines.length; i++) {
             polylines[i].setMap(null);
         }
         polylines = [];
     }
+
     function showAllPolylines() {
         for (var i = 0; i < polylines.length; i++) {
             ploylines[i].setMap(map);
         }
         markers = [];
     }
+
     function distance(lat1, lon1, lat2, lon2) { // 거리 구하는 함수
         const R = 6371; // 지구 반지름 (단위: km)
         const dLat = deg2rad(lat2 - lat1);
@@ -591,9 +688,11 @@
         const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
         return R * c;// 두 지점 간의 거리 (단위: km)
     }
+
     function deg2rad(deg) {
         return deg * (Math.PI / 180);
     }
+
     // 지도에 표시할 선을 생성합니다
     function drawPath(linePath, color) {
         var polyline = new kakao.maps.Polyline({

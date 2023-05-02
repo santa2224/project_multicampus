@@ -49,7 +49,7 @@
 			<div class="planList">
 				<ul>
 					<li>
-						<input type="checkbox" name="noPList" value="${pDTO.plan_no }"/>
+						<input type="checkbox" id="noPList" name="noPList" value="${pDTO.plan_no }"/>
 					</li>
 					<c:if test="${pDTO.d_day>0 }">
 						<li>
@@ -75,7 +75,7 @@
 					</li>
 						<li>날짜: ${pDTO.start_date} ~ ${pDTO.end_date}</li>
 						<li>
-							<input type="button" value="수정" id="planChahge"/>
+							<input type="button" value="수정" id="planChange" onclick="location.href='/jejuana/planner'"/>
 						</li>
 					<c:if test="${pDTO.review_date>0 }">
 						<li>
@@ -83,9 +83,20 @@
 						</li>
 					</c:if>
 					<c:if test="${pDTO.review_date<=0 }">
-						<li>
-							<input type="button" value="리뷰작성" class="planReviewY"id="planReview"/>
-						</li>
+					<c:forEach var="rList" items="${rList }">
+					<c:choose>
+						<c:when test="${rList.plan_no==pDTO.plan_no }">
+							<li>
+								<input type="button" value="리뷰작성" class="planReviewN" id="planReview" disabled/>
+							</li>
+						</c:when>
+						<c:otherwise>
+							<li>
+								<input type="button" value="리뷰작성" class="planReviewY" id="planReview" onclick="location.href='/jejuana/review/reviewWrite?plan_no=${pDTO.plan_no}'"/>
+							</li>
+						</c:otherwise>
+					</c:choose>
+					</c:forEach>
 					</c:if>
 				</ul>		
 			</div>
@@ -98,12 +109,12 @@
 		<div class="pagingDivP">
 			<ul>
 				<c:if test="${vo.nowPage==1 }">
-					<li>
+					<li id="PlanBtn">
 						<i class="fa-solid fa-angle-left"></i>
 					</li>
 				</c:if>
 				<c:if test="${vo.nowPage>1 }">
-					<li>
+					<li id="PlanBtn">
 						<a href="mypagePlan?nowPage=${vo.nowPage-1 }">
 							<i class="fa-solid fa-angle-left"></i>
 						</a>
@@ -145,3 +156,5 @@
 			</ul>
 		</div>
 </div>	
+
+</div>

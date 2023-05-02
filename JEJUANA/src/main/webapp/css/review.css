@@ -191,6 +191,7 @@ dt {
 .tag_icon{
 	color: #bc251a;
 	display:inline-block;
+	margin:0;
 }
 .tag_txt{
 	display:inline-block;
@@ -204,20 +205,59 @@ dt {
 	font-size:18px;
 	color:#F37321;
 }
+.visit_listBox{
+	width:100%;
+	margin-top:30px;
+}
+.reviewWrite_btn:hover{
+	background:#F37321;
+}
 .reviewWrite_btn{
-	display:block;
-	width: 20%;
+	width: 14%;
 	height: 35px;
 	margin-top: 6px;
 	border: none;
 	background: #082032;
 	color: white;
 }
+#reviewWrite_btn:hover{
+	background:#F37321;
+}
+#reviewWrite_btn{
+	padding: 8px 50px 10px 50px;
+	margin-top: 6px;
+	border: none;
+	background: #082032;
+	color: white;
+}
+
+#starli{
+	border-top:1px solid gray;
+	border-bottom:1px solid gray;
+}
+#starli>table>tbody{
+	text-align:center;
+}
+#starli>table>tbody>tr{
+	font-size:14px;
+}
+#starli>table>tbody>tr>td{
+	border-bottom: 1px solid #ddd;
+}
+#starli>table>tbody>tr>td:last-child{
+	padding-bottom:10px;
+}
 #tagli{
 	border-top: 1px solid gray;
     border-bottom: 1px solid gray;
     padding-top: 10px;
     padding-bottom: 10px;
+}
+.visit_listA{
+	margin-bottom:5px	
+}
+.visit_listB{
+	margin-bottom:10px	
 }
 /*CKEDITOR*/
 .ck-editor__editable[role="textbox"] {
@@ -271,8 +311,8 @@ th, td{
 	margin-left:5px;
 }
 .fa-solid{
-	margin:7px;
-	color:#082032;
+	/*margin:7px;*/
+	color:#bc251a;
 }
 .reviewSubM{
 	font-weight:bold;

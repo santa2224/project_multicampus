@@ -39,31 +39,31 @@ $(function(){
 </script>
 <div class="screen" >
 	<div class="category1" >
-		<button>회원관리</button>
-		<button>게시글관리</button>
+		관리자 페이지
 	</div>
 	<div class="section">
 		<div class="section1">
-			<div class="section1_1"> 회원관리 </div>
+			<div class="section1_1"><img src="/jejuana/img/common.png" class="section1_1_2"><p class="section1_1_1"> 회원관리 </p></div>
 			<div class="category2">
-				<button>회원관리</button>
+				<button class="category2_1" onclick="location.href='commonmanager1'">회원관리</button>
+				<button class="category2_1" onclick="location.href='reviewmanager'">게시글 관리</button>
 			</div>	
 		</div>
 		
 		<div class="section2">
-			<div class="section2_1"> 현재 생성되어 있는 회원정보를 확인 할 수 있습니다. </div>	
-			<span>| 회원 검색</span>
+			<div class="section2_1"><p class="section2_1_2"> 현재 생성되어 있는 회원정보를 확인 할 수 있습니다. </p></div>	
+			<span class="section2_1_1">| 회원 검색</span>
 				<div class="section2_2">
-					<div class="section2_3">검색어</div>
+					<div class="section2_3"><p class="section2_3_1">검색어</p></div>
 					<div class="section2_4">
-					<form method="get" id="searchForm" action="commonmanager1">
+					<form method="get" id="searchForm"style="width:80%" action="commonmanager1">
 						<select id="searchKey" name="searchKey">
 						    <option value="name" selected>회원명</option>
 						    <option value="phone_num">전화번호</option>
 						    <option value="nickname">닉네임</option>
 						    <option value="member_type">회원종류</option>
 						</select>
-							<input type="text" name="searchWord" id="searchWord" placeholder="검색...."/>
+							<input type="text" name="searchWord" id="searchWord"placeholder="검색...."/>
 							<input type="submit" class="section2_5" value="검색"/>
 						</form>
 					</div>
@@ -72,7 +72,7 @@ $(function(){
 				<form method="post" action="/jejuana/manager/commonUpdate" id="upList">
 					<div class="section2_6">
 						<table id="tb" class="tsearch">
-							<thead>
+							<thead id="st">
 								<tr>
 									<td><input type="checkbox" id="allCheck"></td>
 									<td>번호</td>
@@ -143,5 +143,4 @@ $(function(){
 	</div>
 
 </div>
-<footer style="width:100%; height:74px; background:antiquewhite; text-align:center; position:fixed; bottom:0; left:0"><h1>footer</h1></footer>
 

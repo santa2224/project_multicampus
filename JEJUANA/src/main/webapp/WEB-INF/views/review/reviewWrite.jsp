@@ -157,17 +157,19 @@ $(function(){
 	
 	pnum = 0;
 	const prowCnt = Math.ceil(${psize}/5);
-	const columnCnt = 8;
+	const columnCnt = 4;
 	
 	var star = "<table>";
 	for(let i=0; i<prowCnt; i++){
 		tag += "<tr>";
 		for(let j=0; j<columnCnt; j++){
+			console.log(this.href);
 			star += "<td>";
 			star += "<input type='hidden' name='place_name' id='place_name' val='" + starArr[pnum] + "'>";
-			star += "<a href='reviewStar?place_no=";
-			star += noArr[pnum];
-			star += "' onclick='window.open(this.href, width=600, height=300); return false; '>";
+			star += "<a href=\"javascript:window.open(\'reviewStar?place_no="+noArr[pnum]+"\', \'\','width=600, height=400\')\">";
+			//star += "<a href='reviewStar?place_no=";
+			//star += noArr[pnum];
+			//star += "' onclick='window.open(this.href, \'\','width=600, height=300\'); return false; '>";
 			star += starArr[pnum];
 			pnum++;
 			star += "</a>";
@@ -178,7 +180,7 @@ $(function(){
 	}
 	star += "</table>";
 	$("#starli").append(star);
-	
+	console.log(star);
 	//태그 테이블 생성
 	var tagArr = new Array(); //태그 배열 생성
 	<c:forEach var="tDTO" items="${tags }">
@@ -256,19 +258,20 @@ $(function(){
 			</div>
 			<div id="tagli"></div>
 		</div>
-		<div>
+		<div class="visit_listBox">
 			<div class="visit_list">[다녀온 여행지 목록]</div>
-			<div>
+			<div class="visit_listA">
 				<i class="fa-solid fa-circle-info tag_icon"></i>
 				<div class="tag_txt">여행지 이름을 클릭하면 별점을 남길 수 있습니다. (자유)</div>
 			</div>
-			<div>
+			<div class="visit_listB">
 				<i class="fa-solid fa-circle-info tag_icon"></i>
 				<div class="tag_txt">한 번 등록한 별점은 수정/삭제할 수 없습니다. </div>
 			</div>
 			<div id="starli"></div>
 		</div>
-		<a href="/jejuana/review/reviewList">목록</a>
-		<input class="reviewWrite_btn" type="submit" value="업로드하기">
+			<a id="reviewWrite_btn" href="/jejuana/review/reviewList">목록</a>
+			<input class="reviewWrite_btn" type="submit" value="업로드하기">
+		</div>
 	</form>
 </div>
