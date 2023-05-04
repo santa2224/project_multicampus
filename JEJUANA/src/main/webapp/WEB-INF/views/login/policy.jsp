@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <link rel="stylesheet" href="/jejuana/css/join.css"/>
+<style>
+	body{
+		overflow:auto;
+	}
+</style>
 			    		<div class="font" style="padding:2%;">
 			                ㈜ 제주아나 (' jejuana, 제주아나, jejuana.co.kr, ' 이하
 			                "회사")은(는) 개인정보보호법에 따라 이용자의 개인정보보호 및

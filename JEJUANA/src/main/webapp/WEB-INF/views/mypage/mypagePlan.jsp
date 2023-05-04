@@ -83,9 +83,8 @@
 						</li>
 					</c:if>
 					<c:if test="${pDTO.review_date<=0 }">
-					<c:forEach var="rList" items="${rList }">
-					<c:choose>
-						<c:when test="${rList.plan_no==pDTO.plan_no }">
+						<c:choose>
+						<c:when test="${rList.contains(pDTO.plan_no)}">
 							<li>
 								<input type="button" value="리뷰작성" class="planReviewN" id="planReview" disabled/>
 							</li>
@@ -94,9 +93,8 @@
 							<li>
 								<input type="button" value="리뷰작성" class="planReviewY" id="planReview" onclick="location.href='/jejuana/review/reviewWrite?plan_no=${pDTO.plan_no}'"/>
 							</li>
-						</c:otherwise>
-					</c:choose>
-					</c:forEach>
+						</c:otherwise>	
+						</c:choose>
 					</c:if>
 				</ul>		
 			</div>
@@ -109,12 +107,12 @@
 		<div class="pagingDivP">
 			<ul>
 				<c:if test="${vo.nowPage==1 }">
-					<li id="PlanBtn">
+					<li>
 						<i class="fa-solid fa-angle-left"></i>
 					</li>
 				</c:if>
 				<c:if test="${vo.nowPage>1 }">
-					<li id="PlanBtn">
+					<li>
 						<a href="mypagePlan?nowPage=${vo.nowPage-1 }">
 							<i class="fa-solid fa-angle-left"></i>
 						</a>

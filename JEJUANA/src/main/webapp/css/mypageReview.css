@@ -72,6 +72,17 @@
 	border: none;
 	border-radius:5px;
 }
+#reviewDelete:hover{
+	background:#F37321;
+}
+#reviewDelete{
+	line-height:20px;
+	background: #2C394B;
+	color:white;
+	height: 30px;
+	border: none;
+	border-radius:5px;
+}
 #chooseDelR:hover{
 	background:#F37321;
 }

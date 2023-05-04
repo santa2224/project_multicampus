@@ -6,13 +6,13 @@
 
 <footer>
 	<div class="footer_left_box">
-		<a href="policy">개인정보처리 방침</a>			
+		<a href="<%=request.getContextPath() %>/policy">개인정보처리 방침</a>			
 		<a href="#">이용약관</a>
 		<a href="#">문의 : multicampus.com</a>
-		<a href="#">ⓒ 제주아나 Corp.All rights reserved.</a>
+		<a href="<%=request.getContextPath() %>">ⓒ 제주아나 Corp.All rights reserved.</a>
 	</div>
 	<div class="footer_right_box">
-		<div ><a href="policy">1:1문의</a></div>
+		<div ><a href="/jejuana/notice/noticeList">1:1문의</a></div>
 		<div class="footer_selectBox">
 			<select onchange="if(this.value) window.open(this.value);" class="footer_select">
 				<option hidden class="footer_option">관련사이트</option>

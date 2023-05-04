@@ -18,17 +18,23 @@
 	
 </script>
 <div class="container">
+<br><br>
 	<div class="titleView">문의게시판</div>
-	<ul id="view">
-		<li>번호: ${dto.notice_no }</li>
-		<li>글쓴이: ${dto.id }</li>
-		<li>등록일: ${dto.notice_date }</li>
-		<li>조회수: ${dto.notice_hit }</li>
-		<li>제목</li>
-		<li style="font-weight:bold;">${dto.notice_subject }</li>
-		<li>글내용</li>
-		<li><p id="s">${dto.notice_content }</p></li>
-	</ul>
+	<div class="view_sub">${dto.notice_subject }</div>
+		<div>
+		<dl class="list_data">
+    			<dt class="dt_id">by ${dto.nickname}</dt>
+    			<!-- <dt> · </dt> -->
+    			<dt class="dt_date">${dto.notice_date }</dt>
+    			<dt class="view_hit">조회 ${dto.notice_hit }</dt>
+    		</dl>
+	</div>
+		<article class="view_cont">${dto.notice_content}</article>
+		
+		<c:if test="${dto.complain!=null }">
+			<div class="com">신고 사유: ${dto.complain }</div>
+		</c:if>
+	
 	
 		<div class="btn_m">
 			<div><input type="button" value="목록보기" id="nList" onclick="location.href='noticeList?notice_no=${dto.notice_no}<c:if test='${vo.searchWord!=null }'>&searchKey=${vo.searchKey }&searchWord=${vo.searchWord }</c:if>'"></div>

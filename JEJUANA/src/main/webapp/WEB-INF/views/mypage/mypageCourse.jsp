@@ -40,7 +40,7 @@ $(function(){
 <div class="content_s">
 
 	<div class="courseTitle">북마크(코스)</div>
-	<form method="post" action="/jejuana/mypage/mypageBookmarkMultiDel?nowPage=${vo.nowPage }" id="delCList">
+	<form method="post" action="/jejuana/mypage/mypageCourseMultiDel?nowPage=${vo.nowPage }" id="delCList">
 		<div id="acc">
 			<input type="checkbox" id="allCheckC"/> 전체선택
 		</div>

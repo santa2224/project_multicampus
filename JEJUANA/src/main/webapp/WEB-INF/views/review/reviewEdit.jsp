@@ -201,8 +201,8 @@ $(function(){
 		$("input[name=tagArr]").each(function(){
 			if(this.checked==true) tagCount++;
 		});
-		if(tagCount<1){
-			alert("태그는 1개 이상 선택하여야 합니다");
+		if(tagCount<1 || tagCount>3){
+			alert("태그는 1개 이상 3개 이하 선택하여야 합니다");
 			return false;
 		}	
 		return true;
@@ -217,7 +217,7 @@ $(function(){
 		<ul>
 			<div style="text-align:center">
 				<li>
-					<input type="text" name="review_subject" id="review_subject" value="${dto.review_subject }" placeholder="제목을 입력하세요. (10자 이내)" maxlength="10">
+					<input type="text" name="review_subject" id="review_subject" value="${dto.review_subject }" placeholder="제목을 입력하세요. (10자 이내)" maxlength="15">
 				</li>
 			</div>
 			<li>

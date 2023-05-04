@@ -156,7 +156,7 @@ $(function(){
 		console.log(noArr);
 	
 	pnum = 0;
-	const prowCnt = Math.ceil(${psize}/5);
+	const prowCnt = Math.ceil(${psize}/4);
 	const columnCnt = 4;
 	
 	var star = "<table>";
@@ -188,7 +188,7 @@ $(function(){
 	</c:forEach>
 	
 	tnum = 0;
-	const trowCnt = Math.ceil(${tsize}/5);
+	const trowCnt = Math.ceil(${tsize}/4);
 	
 	var tag = "<table>";
 	for(let i=0; i<trowCnt; i++){
@@ -244,7 +244,7 @@ $(function(){
 			<div style="text-align:center">
 			<div class="reviewWrite_mainfont">${dto.days}</div>
 			<div class="reviewWrite_mainfont2">일 동안의 여행에 대한 기록</div>
-				<li><input type="text" name="review_subject" id="review_subject" placeholder="제목을 입력하세요. (30자 이내)" maxlength="30"></li>
+				<li><input type="text" name="review_subject" id="review_subject" placeholder="제목을 입력하세요. (15자 이내)" maxlength="15"></li>
 			</div>
 			<li>
 				<textarea name="review_content" id="review_content"  placeholder="솔직한 리뷰는 사람들에게 도움이 됩니다! * 이미지는 1장 이상 첨부해 주세요"></textarea>

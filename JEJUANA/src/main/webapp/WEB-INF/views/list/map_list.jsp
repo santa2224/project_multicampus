@@ -112,7 +112,7 @@ $('#modal_btn').one('click',function(){
 			$(result).each(function(i, data){
 					tag += "<tr class='modal_tr'>";
 					tag += "<td>" +data.book_name+"</td>";
-					tag += "<td>" +data.book_addr.substr(12)+"</td>";
+					tag += "<td>" +data.book_addr+"</td>";
 					tag += "<td>" +data.book_date.substr(0,11)+"</td>";
 					tag += "<td>" +data.rate+"</td>";
 					tag += "<td onclick='deltest("+data.book_no+")'><button class='delbtn'>삭제</button></td>"
@@ -199,7 +199,6 @@ function searchPlaces() {
     	keyword = keyword1 +' '+ keyword
     }
 	
-    console.log(keyword);
     $(function(){
 		//검색결과 유효성 검사
 			$("button[name=name1]").click(function(){
@@ -289,7 +288,9 @@ function displayPlaces(places) {
         fragment.appendChild(itemEl);
 }
     // 검색결과 항목들을 검색결과 목록 Element에 추가합니다
+    console.log(listEl);
     listEl.appendChild(fragment);
+    console.log(listEl);
     menuEl.scrollTop = 0;
     // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
     map.setBounds(bounds);
@@ -317,12 +318,12 @@ function displayMarker(places,i) {
     content.innerHTML += '<div class="body">' + '<div class="img">' +'<img src="'+imgs[i]+'" width="260" height="150" style="margin-top:0px;border:1px solid gray;margin-right:6px;box-shadow: 0px 0px 5px black;">' +'</div>';
 	//content.innerHTML += '<div class="" style="margin:2px 100px; font-weight: bold; float:left;">' + '<p style="margin-left:45px;">평점 ★★★★☆ 리뷰'+i+'</p>' +' </div>';
 	content.innerHTML += '<div class="jibun ellipsis" style="letter-spacing:3px;white-space: normal; margin:6px; font-weight: bold; margin-bottom:16px;">'+ '<div>'+place_firstname+'</div>'+ '<div>'+place_lastname+'</div>'  +'</div>';
-	content.innerHTML += '<div class="wrap_button" style="margin-right:4px;margin-top:-16px;display:-webkit-inline-box;">'+'<form method="get" action="${pageContext.request.contextPath}/bookmarkTest"><input type="hidden" name="book_name" value="'+places[i].place_name.split('(')[0]+'"><input type="hidden" name="book_type" value="'+1+'"><input type="hidden" name="book_addr" value="'+places[i].address_name+'"><button type="submit" style="color:white;"'+bk_login+'>북마크</button></form>'+'<button><a id="kakao-link-btn" class="kakao"  href="javascript:sendLink(\''  +places[i].place_name.split('(')[0]+','+ place_lastname +'\')" style=" text-decoration: none; color:white;">공유</a></button>'+'<button type="button" style="border-right:1px solid gray;" ><a href='+places[i].place_url+' style=" text-decoration: none; color:white;">길찾기</a></button></div>';
+	content.innerHTML += '<div class="wrap_button" style="margin-right:4px;margin-top:-16px;display:-webkit-inline-box;">'+'<form method="get" action="${pageContext.request.contextPath}/bookmarkTest"><input type="hidden" name="book_name" value="'+places[i].place_name.split('(')[0]+'"><input type="hidden" name="book_type" value="'+1+'"><input type="hidden" name="book_addr" value="'+place_lastname+'"><button type="submit" style="color:white;"'+bk_login+'>북마크</button></form>'+'<button><a id="kakao-link-btn" class="kakao"  href="javascript:sendLink(\''  +places[i].place_name.split('(')[0]+','+ place_lastname +'\')" style=" text-decoration: none; color:white;">공유</a></button>'+'<button type="button" style="border-right:1px solid gray;" ><a href='+places[i].place_url+' style=" text-decoration: none; color:white;">길찾기</a></button></div>';
     
 	content.style.cssText = 'background:white;  ';
     var closeBtn = document.createElement('button');
     closeBtn.innerHTML = '<i class="fa-solid fa-rectangle-xmark fa-xl" style="font-size:20px;"></i>';
-    closeBtn.style.cssText = 'position:absolute; width:20px; height:18px; border:none; border-radius:5px;margin-top:-248px;margin-left:-28px; background:white;';
+    closeBtn.style.cssText = 'position:absolute; width:20px; height:18px; border:none; border-radius:5px;margin-top:-233px;margin-left:-28px; background:white;';
     
     closeBtn.onclick = function () {
         overlay.setMap(null);
@@ -482,8 +483,8 @@ function sendLink(title) {
       description:'(으)로 놀러가자~',
       imageUrl: 'https://a.cdn-hotels.com/gdcs/production85/d946/73f139d8-4c1d-4ef6-97b0-9b2ccf29878a.jpg?impolicy=fcrop&w=1600&h=1066&q=medium',
       link: {
-        mobileWebUrl: 'http://localhost:8080/jejuana/map_list#',
-        webUrl: 'http://localhost:8080/jejuana/map_list#'
+          mobileWebUrl: 'http://localhost:9090/jejuana/map_list#',
+          webUrl: 'http://localhost:9090/jejuana/map_list#'
       }
     },
     social: {

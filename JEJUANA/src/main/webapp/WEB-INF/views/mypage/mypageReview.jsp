@@ -51,6 +51,7 @@
 			<c:set var="recordNum" value="${vo.totalRecord - (vo.nowPage-1)*vo.onePageRecord }"/>
 			
 			<c:forEach var="dto" items="${list }">
+				<c:if test="${dto.activated==0 }">
 				<li><input class="mypageReview_select" type="checkbox" id="noRList" name="noRList" value="${dto.plan_no }"></li>
 				<li class="review_Num_css">${recordNum }</li>
 				<li class="review_subject_css">${dto.review_subject }</li>
@@ -59,6 +60,18 @@
 				<li><input type="button" value="수정" id="reviewChange" onclick="location.href='mypageReviewEdit?plan_no=${dto.plan_no}'"></li>
 				
 				<c:set var="recordNum" value="${recordNum-1 }"/>
+				</c:if>
+				
+				<c:if test="${dto.complain!=null }">
+				<li><input class="mypageReview_select" type="checkbox" id="noRList" value="${dto.plan_no }" disabled></li>
+				<li class="review_Num_css">${recordNum }</li>
+				<li class="review_subject_css"><p style="font-weight:bold; float:left; margin-right:15px;">신고사유: ${dto.complain }</p><p>${dto.review_subject}</p></li>
+				<li>${dto.review_hit }</li>
+				<li>${dto.writedate }</li>
+				<li><input type="button" value="삭제" id="reviewDelete" onclick="location.href='mypageReviewDelete?plan_no=${dto.plan_no}'"></li>
+				
+				<c:set var="recordNum" value="${recordNum-1 }"/>
+				</c:if>
 			</c:forEach>
 		</ul>
 	</form>

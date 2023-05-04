@@ -8,7 +8,7 @@
 	<!-- 검색 -->
 	<div class="searchDiv">
 		<form method="get" id="searchForm" action="noticeList">
-			<select name="searchKey">
+			<select name="searchKey" class="searchKey">
 				<option value="notice_subject">제목</option>
 				<option value="id">작성자</option>
 				<option value="notice_content">글내용</option>

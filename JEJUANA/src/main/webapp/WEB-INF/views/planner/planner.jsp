@@ -38,6 +38,7 @@
     $(function () {
         // 두 날짜의 차이를 담을 변수
         // 저장 눌렀을 때 플랜 이름 있는지 확인
+        console.log(sessionStorage.getItem("loginId"));
         $("#modalopen").trigger("click");
         $("#newPlannerChoose").click(function () {
             $("#choose_modal_close").trigger("click");
@@ -128,10 +129,17 @@
             start = $("#start_date").val().split('-');  // 선택한 날짜를 '-' 를 기준으로 나눠서 배열에 넣고
             startdate = new Date(start[0], start[1], start[2]);// 그걸 다시 Data 객체로 만듬
             if (enddate != null) {// 만약 종료일이 선택되어있으면
-                days = 1 + (enddate.getTime() - startdate.getTime()) / (1000 * 60 * 60 * 24);// 두 날짜의 차이를 구해서
-                $("#days").val(days);
-                showSchedule(days);// 일정을 선택할수있는 함수에 넣는다.
-                console.log(days);
+                if(!(startdate<=enddate)){
+                    alert("일정 시작일이 종료일보다 늦습니다. 다시 확인해주세요");
+                    $("#start_date").val("");
+                    return false;
+                }else{
+                    days = 1 + (enddate.getTime() - startdate.getTime()) / (1000 * 60 * 60 * 24);// 두 날짜의 차이를 구해서
+                    $("#days").val(days);
+                    showSchedule(days);// 일정을 선택할수있는 함수에 넣는다.
+                    console.log(days);
+                }
+
             }
         });
         $("#end_date").change(function () { // 시작일과 동일한 방식
@@ -139,10 +147,17 @@
             end = $("#end_date").val().split('-');
             enddate = new Date(end[0], end[1], end[2]);
             if (startdate != null) {
-                days = 1 + (enddate.getTime() - startdate.getTime()) / (1000 * 60 * 60 * 24);
-                $("#days").val(days);
-                showSchedule(days);
-                console.log(days);
+                if(!(startdate<=enddate)) {
+                    alert("일정 종료일이 시작일보다 빠릅니다. 다시 확인해주세요");
+                    $("#end_date").val("");
+                    return false;
+                }else{
+                    days = 1 + (enddate.getTime() - startdate.getTime()) / (1000 * 60 * 60 * 24);
+                    $("#days").val(days);
+                    showSchedule(days);
+                    console.log(days);
+                }
+
             }
         });
 
@@ -223,7 +238,7 @@
                 tag += "<div class='schedule_body' id='day" + i + "'></div>";
                 tag += "<div class='schedule_footer'>";
                 tag += "<div class='placeAdd' id='" + i + "'>";
-                tag += "<img src='<%=request.getContextPath()%>/img/placeselect.png' width='50'/></div>";
+                tag += "<i class=\"fa-regular fa-calendar-check\"></i>일정만들기</div>";
                 tag += "</div></div>";
                 $("#schedule").append(tag);
             }
@@ -241,6 +256,7 @@
             $("#searchWord").val("");// selectedPlace 박스 초기화
             $("#myModal").css("display", "block");// 그리고 모달을 보이게 한다.
             let searchWord = $("#searchWord").val();
+            console.log('dddd');
             placeList(searchWord, pageNo);                                  //목록 띄워주기
         });
         // 모달 내 여행지 목록에서 여행지 선택 버튼을 눌렀을 때
@@ -248,9 +264,16 @@
             let selected = $(this).parent().parent();
             selected[0].firstChild.className="selected_place_item";
             selected.find(".selected_place_name").css("display", "block");
+            selected.find(".delete").css("display", "block");
+            selected.find(".delete").attr("class", "selected_delete");
             $("#selectedPlace").append(selected[0].firstChild); //선택된 여행지를 selectedPlace 박스에 사진으로 올린다.
 
             selected.css("display", "none"); //선택된 여행지를 목록에서 안보이게 한다.
+        });
+        $(document).on("click", ".selected_delete", function(){
+            let selected = $(this);
+            selected.parent().remove();
+
         });
 
         /*                               1111111111111111111111111111111                               */
@@ -300,14 +323,15 @@
                 tag += "    <input type='hidden' class='place_no' value='" + dto.place_no + "'/> ";
                 tag += "    <input type='hidden' class='place_lat'  value='" + dto.latitude + "'/> ";
                 tag += "    <input type='hidden' class='place_lon'  value='" + dto.longitude + "'/> ";
-                tag += "    <img src='<%=request.getContextPath()%>/img/places/" + dto.thumbnail + ".jpg' width='70' height='70'/>";
-                tag += "    <figcaption class='selected_place_name' >"+ dto.place_name + "</figcaption></div>";
+                tag += "    <img class='place_img' src='<%=request.getContextPath()%>/img/places/" + dto.thumbnail + ".jpg' width='70' height='70'/>";
+                tag += "    <figcaption class='selected_place_name' >"+ dto.place_name + "</figcaption>";
+                tag += "<img class='delete' src='<%=request.getContextPath()%>/img/selected_delete.png' width='20'/></div>";
                 tag += "<div class='place_item'>";
                 tag += "    <span style='font-size: 1.2em'>" + dto.place_name + "</span></div>";
                 tag += "<div class='place_item'>" + dto.content + "</div>";
-                tag += "<div class='place_item'><img class='star' src='<%=request.getContextPath()%>/img/star.png' width='20' height='20'/>   " + dto.rate + "</div>";
+                tag += "<div class='place_item'><i class='fa-solid fa-star' style='color: #f37321;margin-bottom:5.5px;margin-right:5px;'></i>\t" + dto.rate + "</div>";
                 tag += "<div class='place_item'>";
-                tag += "    <button type='button' class='btn btn-primary'>선택</button></div>";
+                tag += "    <button type='button' class='btn-primary'>선택</button></div>";
                 $("#placeBox").append(tag);
             });
         }
@@ -394,7 +418,7 @@
                         tag += "<input type='hidden' class='course_order' name='course_order'  value='" + (i + 1 + a) + "'/>";
                         tag += "<div class='place_dis'></div>";
                         tag += "<div class='place_name'>" + dto.place_name + "</div>";
-                        tag += "<button class='place_del " + day + "'><img src='<%=request.getContextPath()%>/img/place_delete2.jpg' width='30'/></button>";
+                        tag += "<button class='place_del " + day + "'><i class=\"fa-solid fa-delete-left\"></i></button>";
                         tag += "<input type='hidden' class='place_no' name='place_no' value='" + dto.place_no + "'/>";
                         tag += "<input class='lat' type='hidden' value='" + dto.latitude + "'/>";
                         tag += "<input class='lon'  type='hidden' value='" + dto.longitude + "'/></div>";
@@ -429,6 +453,8 @@
         $("#place_tab").click(function () {
             $("#selectedPlace").html("");
             $("#placeBox").html("");
+            $(this).css("background-color", "#082032")
+            $("#bookmark_tab").css("background-color", "#9b9b9b")
             pageNo = 1;
             $("#searchWord").attr("class", "placeList");
             $("#searchWord").val("");// selectedPlace 박스 초기화
@@ -438,6 +464,8 @@
         $("#bookmark_tab").click(function () {
             $("#selectedPlace").html("");
             $("#placeBox").html("");
+            $(this).css("background-color", "#082032")
+            $("#place_tab").css("background-color", "#9b9b9b")
             pageNo = 1;
             $("#searchWord").attr("class", "bookmarkList");
             $("#searchWord").val("");// selectedPlace 박스 초기화
@@ -445,8 +473,8 @@
             bookmarkList(searchWord, pageNo);
         })
         $(document).on("click", ".schedule_detail", function () {
-            $(".schedule_detail").css("border", "1px solid gray");
-            $(this).css("border", "3px solid #C1584A");
+            $(".schedule_detail").css("border", "2px solid gray");
+            $(this).css("border", "2px solid #C1584A");
             let target = $(this).find(".schedule_body");
             deleteMarkers();
             deletePolylines();
@@ -504,42 +532,42 @@
             <input type="text" class="ib" id="plan_name" name="plan_name" placeholder="플랜 이름"/></li>
         <input type="hidden" id="plan_no" value=""/>
         <li>
-            <div class="label">일정 :</div>
+            <div class="label">일정 </div>
             <input type="date" id="start_date" name="start_date" value=""/>
-            - <input type="date" id="end_date" name="end_date" value=""/></li>
+            ~ <input type="date" id="end_date" name="end_date" value=""/></li>
         <li><input type="hidden" id="days" name="days" value=""/></li>
         <li>
             <div id="total_schedule">
-                전체보기
+                일정 전체보기
             </div>
         </li>
         <li id="schedule">
 
-
         </li>
-        <li>
+        <li class="planner_bodyBtn">
             <div id="buttons">
                 <button type="button" id="save">저장</button>
-                <button type="button" id="cancel">취소</button>
+                <!-- <button type="button" id="cancel">취소</button> -->
             </div>
         </li>
     </ul>
     <br/>
 
 
-    <div class="myModal" id="myModal"> 
-    	<!-- 모달로 쓸 블럭 -->
+    <div class="myModal" id="myModal">
+        <!-- 모달로 쓸 블럭 -->
         <input type="hidden" id="day" value=""/>
         <div id="modalheader">
-            <div id="place_tab">여행지</div>
-            <div id="bookmark_tab">북마크</div>
+            <div class="place_bookmark" id="place_tab">여행지</div>
+            <div class="place_bookmark" id="bookmark_tab">북마크</div>
         </div>
         <div id="modalbody">
 
-            <button type="button" class="closeModal" id="xbox"><img src="<%=request.getContextPath()%>/img/delete.png"
-                                                                    width="20"></button>
+            <button type="button" class="closeModal" id="xbox">
+                <i class="fa-solid fa-square-xmark" style="color:#082032;"></i>
+            </button>
             <%--검색--%>
-            <div id="searchForm" style="background-color: bisque; height:50px;">
+            <div id="searchForm" style="height:35px;">
                 <input type="text" class="placeList" name="searchWord" id="searchWord"/>
             </div>
             <%--선택한거 보여주는 박스--%>
@@ -547,9 +575,9 @@
 
             </div>
             <div id="placeSave">
-                <div id="saveBtn" class="btn button">저장</div>
+                <div id="saveBtn">저장</div>
                 <%--이거 누르면 왜 --%>
-                <div id="cancelBtn" class="btn button">취소</div>
+                <!-- <div id="cancelBtn" class="btn button">취소</div> -->
             </div>
             <%--장소 목록 예시--%>
             <div id="placeBox">
@@ -576,7 +604,7 @@
 
             <!-- Modal Header -->
             <div class="modal-header">
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                <button type="button" class="btn-close" id="choose_modal_close" data-bs-dismiss="modal"></button>
             </div>
 
             <!-- Modal body -->
@@ -592,8 +620,8 @@
 
             <!-- Modal footer -->
             <div class="modal-footer">
-                <button type="button" id="choose_modal_close" class="btn btn-danger" data-bs-dismiss="modal">Close
-                </button>
+                <!-- <button type="button" id="choose_modal_close" class="btn btn-danger" data-bs-dismiss="modal">Close
+                </button> -->
             </div>
 
         </div>
@@ -617,15 +645,13 @@
     let mapTypeControl = new kakao.maps.MapTypeControl();
     // 지도에 컨트롤을 추가해야 지도위에 표시됩니다
     // kakao.maps.ControlPosition은 컨트롤이 표시될 위치를 정의하는데 TOPRIGHT는 오른쪽 위를 의미합니다
-    map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPLEFT);
-    // 지도 확대 축소를 제어할 수 있는  줌 컨트롤을 생성합니다
-    let zoomControl = new kakao.maps.ZoomControl();
-    map.addControl(zoomControl, kakao.maps.ControlPosition.LEFT);
+    map.addControl(mapTypeControl, kakao.maps.ControlPosition.BOTTOMRIGHT);
+
 
     function displayMarker(position, i) {
-        var imageSrc = '<%=request.getContextPath()%>/img/marker1.png', // 마커이미지의 주소입니다
-            imageSize = new kakao.maps.Size(40, 44), // 마커이미지의 크기입니다
-            imageOption = {offset: new kakao.maps.Point(20, 44)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+        var imageSrc = '<%=request.getContextPath()%>/img/marker2.png', // 마커이미지의 주소입니다
+            imageSize = new kakao.maps.Size(30, 49), // 마커이미지의 크기입니다
+            imageOption = {offset: new kakao.maps.Point(15, 49)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
 // 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
         var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption)
         // 마커를 생성합니다
@@ -637,13 +663,13 @@
         marker.setMap(map);
         // 생성된 마커를 배열에 추가합니다
         markers.push(marker);
-        var content = "<h5>" + i + "</h5>";
+        var content = "<h4 style='font-weight: bolder;color: #f9f9f9;'>" + i + "</h4>";
         // 커스텀 오버레이가 표시될 위치입니다
         // 커스텀 오버레이를 생성합니다
         var customOverlay = new kakao.maps.CustomOverlay({
             position: position,
             content: content,
-            yAnchor: 1.15
+            yAnchor: 1.27
         });
         customOverlay.setMap(map);
         customOverlays.push(customOverlay);
