@@ -26,7 +26,7 @@
 					<div class="section1_3">
 						<form onsubmit="searchPlaces(); return false;" style="height:100%;" >
 								<div class="section1_3_1">
-									<input type="text" class="form-control search-menu" id="keyword" value="제주도">
+									<input type="text" class="form-control search-menu" id="keyword" value="">
 								</div>
 								<div class="section1_3_2">
 									<button type="submit" name="name1"><img src="/jejuana/img/button_search.png"alt="검색"></button>
@@ -244,7 +244,7 @@ function addMarker(y,x) {
     var imageSrc = '/jejuana/img/marker1.png', // 마커 이미지 url, 스프라이트 이미지를 씁니다
         imageSize = new kakao.maps.Size(80, 80),  // 마커 이미지의 크기
         imgOptions =  {
-            spriteSize : new kakao.maps.Size(30, 60), // 스프라이트 이미지의 크기
+            spriteSize : new kakao.maps.Size(30, 50), // 스프라이트 이미지의 크기
             spriteOrigin : new kakao.maps.Point(0, 0), // 스프라이트 이미지 중 사용할 영역의 좌상단 좌표
             offset: new kakao.maps.Point(12, 60) // 마커 좌표에 일치시킬 이미지 내에서의 좌표
         },
@@ -467,7 +467,7 @@ function (WeatherResult) {
     var weathericonUrl =
         '<img src= "http://openweathermap.org/img/wn/'
         + WeatherResult.weather[0].icon +
-        '.png" alt="' + WeatherResult.weather[0].description + '"'+' style="width:200%; margin-top:-35px;margin-left:110px;"'+'/>'
+        '.png" alt="' + WeatherResult.weather[0].description + '"'+' style="width:100%; margin-top:-13px;margin-left:200px;"'+'/>'
     $('.JejuIcon').html(weathericonUrl);
 });
 </script>  

@@ -51,7 +51,7 @@ $(function(){
 						<div class="chooseDel1_txt">선택</div>
 					</li>
 					<li>
-						<img src="/jejuana/img/img01.jpg"/>
+						<img src="/jejuana/img/places/1.jpg"/>
 					</li>
 					<li style="font-weight:bold;">${list.book_name }</li>
 					<li>

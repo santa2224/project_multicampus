@@ -105,7 +105,7 @@ function joinform_check(){
 <div class="screen">
 	<div class="section">
 		<div class="section1">
-			<div class="section1_1">
+			<div class="section1_1" style="background: white;height: 140px;">
 				<a class="commonmangerLink" href="<%=request.getContextPath() %>/manager/commonmanager1">
 					<i id="img1" class="fa-solid fa-circle-user fa-2xl"></i>
 					<p class="section1_1_1">회원관리</p>
@@ -158,7 +158,7 @@ function joinform_check(){
 						<div class="user_info">
 							<div class="user_infoBox">핸드폰</div>
 							<div class="user_infoCon">
-								<input type="text" name="phone_num" id="phone_num" value="${dto.phone_num }">
+								<input type="text" name="phone_num" id="phone_num" value="0${dto.phone_num }">
 							</div>
 						</div>
 						<div class="user_info">

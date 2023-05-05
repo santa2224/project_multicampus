@@ -85,9 +85,9 @@ html, body {
 	float:left;
 	width:10%
 }
-.JejuIcon>img{
+#JejuIcon>img{
 	width:100%;
-	margin-top:-11px;
+	margin-top:-13px;
 	margin-left:200px;
 }
 .section1_1_1{
