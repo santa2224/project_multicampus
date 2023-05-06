@@ -469,3 +469,9 @@ swiper-slide{
     padding-top: 3px;
     border:none;
 }
+#mypageReviewForm{
+	font-family: 'GmarketSansMedium';
+}
+#mypageReviewForm li{
+	padding:10px 0px;
+}

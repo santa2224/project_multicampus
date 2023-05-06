@@ -40,6 +40,7 @@ $(function(){
 	</div>
  	<swiper-container  class="mySwiper"  pagination="true" pagination-clickable="true" space-between="30" slides-per-view="5">
     	 
+    	
     	<c:forEach var="bDTO" items="${best }">
 			<swiper-slide>
 				<div class="img-crop">
@@ -62,6 +63,7 @@ $(function(){
 			  	<div class="li_id">by ${bDTO.nickname }</div>
 		  </swiper-slide>
 		</c:forEach>
+		 
     	
 		<swiper-slide>
 				<div class="img-crop">

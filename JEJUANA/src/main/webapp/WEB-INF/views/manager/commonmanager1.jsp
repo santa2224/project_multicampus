@@ -94,7 +94,7 @@ $(function(){
 								<td>${rDTO.common_no }</td>
 								<td onclick="location.href='commonmanager2?common_no=${rDTO.common_no}&nowPage=${vo.nowPage }<c:if test="${vo.searchWord!=null}">&searchKey=${vo.searchKey}&searchWord=${vo.searchWord }</c:if>'" style="cursor:Pointer;">${rDTO.name }</td>
 								<td>${rDTO.id }</td>
-								<td>0${rDTO.phone_num }</td>
+								<td>${rDTO.phone_num }</td>
 								<td>${rDTO.sign_date }</td>
 								<td>${rDTO.nickname }</td>
 								<td>

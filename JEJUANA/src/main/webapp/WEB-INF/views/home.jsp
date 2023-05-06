@@ -35,11 +35,11 @@
 				<!-- Swiper -->
 					<div class="swiper mySwiper">
 					    <div class="swiper-wrapper">
-					      <div class="swiper-slide"><img src="img/main_image12.jpg"></div>
-					      <div class="swiper-slide"><img src="img/main_image2.jpg"></div>
-					      <div class="swiper-slide"><img src="img/main_image3.jpg"></div>
+					      <div class="swiper-slide"><img src="img/main_image12.png"></div>
+					      <div class="swiper-slide"><img src="img/main_image2.png"></div>
+					      <div class="swiper-slide"><img src="img/main_image3.png"></div>
 					      <div class="swiper-slide"><img src="img/main_image4.jpg"></div>
-					      <div class="swiper-slide"><img src="img/main_image5.jpg"></div>
+					      <div class="swiper-slide"><img src="img/main_image5.png"></div>
 			          	</div>
 					    <div class="autoplay-progress">
 					      <svg viewBox="0 0 48 48">

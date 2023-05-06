@@ -158,7 +158,7 @@ function joinform_check(){
 						<div class="user_info">
 							<div class="user_infoBox">핸드폰</div>
 							<div class="user_infoCon">
-								<input type="text" name="phone_num" id="phone_num" value="0${dto.phone_num }">
+								<input type="text" name="phone_num" id="phone_num" value="${dto.phone_num }">
 							</div>
 						</div>
 						<div class="user_info">
