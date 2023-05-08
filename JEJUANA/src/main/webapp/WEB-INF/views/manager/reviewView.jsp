@@ -32,6 +32,7 @@
 							<input type="hidden" value="${vo.searchWord }" />
 							<input type="hidden" value="${vo.searchKey }" />
 						</c:if>
+						<input type="hidden" name="plan_no" value="${dto.plan_no }"/>
 					<div class="viewBox">
 						<ul id="view">
 							<li>번호: ${dto.plan_no }</li>

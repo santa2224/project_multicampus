@@ -135,6 +135,7 @@ function joinform_check(){
 							<div class="user_infoBox">번호</div>
 							<div class="user_infoCon">
 								<input type="text" name="common_no" id="common_no" value="${dto.common_no }" disabled>
+								<input type="hidden" name="common_no" id="common_no" value="${dto.common_no }">
 							</div>
 						</div>
 						<div class="user_info">
@@ -171,13 +172,13 @@ function joinform_check(){
 							<div class="user_infoBox">회원분류</div>
 							<div  class="user_infoCon">
 								<c:if test="${dto.member_type == 0}">
-									<input type="text" name="common_no" id="common_no" value="일반회원" disabled>
+									<input type="text" value="일반회원" disabled>
 								</c:if>
 								<c:if test="${dto.member_type == 1}">
-									<input type="text" name="common_no" id="common_no" value="관리자" disabled>
+									<input type="text" value="관리자" disabled>
 								</c:if> 
 								<c:if test="${dto.member_type == 2}">
-									<input type="text" name="common_no" id="common_no" value="정지회원" disabled>
+									<input type="text" value="정지회원" disabled>
 								</c:if>
 							</div>
 						</div>

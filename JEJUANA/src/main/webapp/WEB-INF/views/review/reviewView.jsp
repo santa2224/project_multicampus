@@ -20,7 +20,7 @@
         if(dayArr.length != 0){
             var tag = "<div class='reviewSubM'> ${dto.nickname} 님이 다녀온 " + days + "일 동안의 여행 코스" + "</div>";
             for(let i=1; i<=days; i++){ //1,2,3,4
-                tag += "<div>" + i + "일차 "+ '<i class="fa-solid fa-caret-right"></i> ';
+                tag += "<div>" + i + "일차 "+ '<i class="fa-solid fa-caret-right dayIcon"></i> ';
                 for(let j=0; j<=courseArr.length; j++){ //1,2,3,4,5,6,7,8,9
                     if(dayArr[j] == i){
                         tag += courseArr[j]+ " ";
@@ -172,28 +172,61 @@
     
     <div class="postbtn" style="word-wrap:break-word;">
         <c:if test="${loginStatus!='Y'}">
-            <a href="javascript:alert('로그인 후 이용 가능합니다.');" class="joayo">좋아요 ${dto.joayo_hit }</a>
-            <a href="javascript:alert('로그인 후 이용 가능합니다.');" class="bookmark">북마크</a>
+            <a href="javascript:alert('로그인 후 이용 가능합니다.');" class="joayo">
+	            좋아요
+	            <i class="fa-solid fa-heart" style="color: #d11a1a;"></i>
+	            ${dto.joayo_hit }
+            </a>
+            <a href="javascript:alert('로그인 후 이용 가능합니다.');" class="bookmark">
+            	<i class="fa-solid fa-bookmark reviewView_book"></i>
+            	북마크
+           	</a>
         </c:if>
         <c:if test="${loginStatus=='Y' && loginId!=dto.id && cnt==0}">
-            <a href="reviewJoa?plan_no=${dto.plan_no }" class="joayo">좋아요 ${dto.joayo_hit }</a>
-            <a href="/jejuana/notice/complainWrite?plan_no=${dto.plan_no }" class="complainWrite">신고하기</a>
-            <a href="reviewBm?target_no=${dto.plan_no }" class="bookmark">북마크</a>
+            <a href="reviewJoa?plan_no=${dto.plan_no }" class="joayo">
+	            좋아요
+	            <i class="fa-solid fa-heart" style="color: #d11a1a;"></i>
+	            ${dto.joayo_hit }
+            </a>
+            <a href="/jejuana/notice/complainWrite?plan_no=${dto.plan_no }&review_subject=${dto.review_subject}&id=${dto.id}" style="margin-top: 3px;" class="complainWrite">
+            	<i class="fa-solid fa-tombstone-blank" style="color: #ea2a2a;"></i>
+            	신고하기
+            </a>
+            <a href="reviewBm?target_no=${dto.plan_no }" class="bookmark">
+	            <i class="fa-solid fa-bookmark reviewView_book"></i>
+	            북마크
+            </a>
             <!-- 내 일정에 담기 
             <input type="button" id="planPopup" value="일정담기">-->
         </c:if>
         
         <c:if test="${loginStatus=='Y' && loginId!=dto.id && cnt!=0}">
-            <a href="reviewJoa?plan_no=${dto.plan_no }" class="joayo">좋아요 ${dto.joayo_hit }</a>
-            <a href="javascript:alert('이미 신고된 글입니다.');" class="complainWrite">신고하기</a>
-            <a href="reviewBm?target_no=${dto.plan_no }" class="bookmark">북마크</a>
+            <a href="reviewJoa?plan_no=${dto.plan_no }" class="joayo">
+	            좋아요
+	            <i class="fa-solid fa-heart" style="color: #d11a1a;"></i>
+	            ${dto.joayo_hit }</a>
+            <a href="javascript:alert('이미 신고된 글입니다.');" class="complainWrite" style="margin-top: 3px;">
+            	<i class="fa-solid fa-tombstone-blank" style="color: #ea2a2a;"></i>
+            	신고하기
+           	</a>
+            <a href="reviewBm?target_no=${dto.plan_no }" class="bookmark">
+            	<i class="fa-solid fa-bookmark reviewView_book"></i>
+            	북마크
+            </a>
             <!-- 내 일정에 담기 
             <input type="button" id="planPopup" value="일정담기">-->
         </c:if>
         
         <c:if test="${loginId==dto.id }">
-            <a href="javascript:alert('자신이 작성한 글은 좋아요를 할 수 없습니다.');" class="joayo">좋아요 ${dto.joayo_hit }</a>
-            <a href="javascript:alert('자신이 작성한 글은 북마크를 할 수 없습니다.');" class="bookmark">북마크</a>
+            <a href="javascript:alert('자신이 작성한 글은 좋아요를 할 수 없습니다.');" class="joayo">
+	            좋아요
+	            <i class="fa-solid fa-heart" style="color: #d11a1a;"></i>
+	            ${dto.joayo_hit }
+            </a>
+            <a href="javascript:alert('자신이 작성한 글은 북마크를 할 수 없습니다.');" class="bookmark">
+	            <i class="fa-solid fa-bookmark reviewView_book"></i>
+	            북마크
+            </a>
         </c:if>
     </div>
     

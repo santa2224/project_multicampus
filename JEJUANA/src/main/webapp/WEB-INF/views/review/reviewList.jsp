@@ -38,9 +38,7 @@ $(function(){
 		<i class="fa-solid fa-arrow-pointer best_click"></i>
 		<b class="click">클릭</b> 폭발하는 여행지
 	</div>
- 	<swiper-container  class="mySwiper"  pagination="true" pagination-clickable="true" space-between="30" slides-per-view="5">
-    	 
-    	
+ 	<swiper-container  class="mySwiper"  pagination="true" pagination-clickable="true" space-between="30" slides-per-view="5">	
     	<c:forEach var="bDTO" items="${best }">
 			<swiper-slide>
 				<div class="img-crop">
@@ -62,10 +60,11 @@ $(function(){
 		  		</div>
 			  	<div class="li_id">by ${bDTO.nickname }</div>
 		  </swiper-slide>
+		  
 		</c:forEach>
 		 
     	
-		<swiper-slide>
+		<!-- <swiper-slide>
 				<div class="img-crop">
 					<div class="inner">
 		  				<img class="image" src="../img/review/16.png">
@@ -157,7 +156,8 @@ $(function(){
 		    	</div>
 			  	<div class="li_sub"><a href="reviewView?plan_no=${bDTO.plan_no }">휴가로는 역시 여기!</a></div>
 			  	<div class="li_id">by 비비</div>
-		  </swiper-slide>
+		  </swiper-slide> -->
+		  
  	</swiper-container>
 </div> 
 <div class="reviewBox">
@@ -189,9 +189,10 @@ $(function(){
 					</li>
 					<li class="review_date">${rDTO.writedate }</li>
 				</ul>
-		  </div>
+		  	</div>
+		  	
 		</c:forEach>
-		<div class="review">
+		<!-- <div class="review">
 				<div class="img-crop">
 					<div class="inner">
 		  				<img class="thumbnail" src="../img/review/10.jpg">
@@ -510,6 +511,6 @@ $(function(){
 					</li>
 					<li class="review_date">2023-04-10</li>
 				</ul>
-		  </div>
+		  </div> -->
 	</div>
 </div>

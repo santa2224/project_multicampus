@@ -175,9 +175,9 @@
 			<li>
 				<!-- 에디터 -->
 				<textarea name="notice_content" id="content">
-					1. 신고 글 제목:</br>
+					1. 신고 글 제목: ${review_subject}</br>
 					<br/>
-					2. 신고 글 작성자:</br>
+					2. 신고 글 작성자:${id}</br>
 					<br/>
 					3. 신고 사유(자세히):
 				</textarea>

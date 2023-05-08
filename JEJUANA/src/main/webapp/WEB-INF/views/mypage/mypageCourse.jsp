@@ -95,7 +95,7 @@ $(function(){
 				</c:if>
 				<c:if test="${vo.nowPage>1 }">
 					<li>
-						<a href="mypagePlan?nowPage=${vo.nowPage-1 }">
+						<a href="mypageCourse?nowPage=${vo.nowPage-1 }">
 							<i class="fa-solid fa-angle-left"></i>
 						</a>
 					</li>
@@ -110,7 +110,7 @@ $(function(){
 						<c:if test="${p!=vo.nowPage }">
 							<li>
 						</c:if>
-						<a href="mypagePlan?nowPage=${p }">${p }</a></li>
+						<a href="mypageCourse?nowPage=${p }">${p }</a></li>
 					</c:if>
 				</c:forEach>
 			
@@ -118,7 +118,7 @@ $(function(){
 			<!-- 다음 페이지가 있을 때 -->
 			<c:if test="${vo.nowPage<vo.totalPage }">
 				<li>
-					<a href="mypagePlan?nowPage=${vo.nowPage+1 }">
+					<a href="mypageCourse?nowPage=${vo.nowPage+1 }">
 					
 						<!-- fontawesome오른쪽 화살표 -->
 						<i class="fa-solid fa-chevron-right"></i>

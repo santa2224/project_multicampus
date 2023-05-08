@@ -44,37 +44,76 @@
             $("#choose_modal_close").trigger("click");
         })
         $("#oldPlannerChoose").click(function () {
-            $("#planList").css("display", "block");
-            //$("#chooseModal").css("z-index", "900");
+            $("#planList").css("display", "grid");
+            $("#planListBody").html("");
             $.ajax({
-                url: 'planList',
+                url: 'myPlanList',
                 type: 'POST',
                 success: function (result) {
-                    console.log(result)
-                    showPlanList(result)
+                    let target = 'myPlan';
+                    showPlanList(result, target)
+                }, error: function (e) {
+                    console.log(e.responseText)
+                }
+            })
+            })
+        $("#myPlan").click(function(){
+            $(this).css("color", "whitesmoke");
+            $(this).css("background-color", "#F37321");
+            $("#bookPlan").css("color", "#082032");
+            $("#bookPlan").css("background-color", "#d9d9d9");
+            $.ajax({
+                url: 'myPlanList',
+                type: 'POST',
+                success: function (result) {
+                    let target = 'myPlan';
+                    showPlanList(result, target)
                 }, error: function (e) {
                     console.log(e.responseText)
                 }
             })
 
-            function showPlanList(data) {
-                $(data).each(function (i, dto) {
-                    let planEl = document.createElement("div"),
-                        tag = "";
-                    planEl.className = "plan_container";
-                    tag += "<input type='hidden' class='plan_no' value='" + dto.plan_no + "'/>";
-                    tag += "<input type='hidden' class='days' value='" + dto.days + "'/>";
-                    tag += "<input type='hidden' class='plan_name' value='" + dto.plan_name + "'/>";
-                    tag += "<input type='hidden' class='start_date' value='" + dto.start_date + "'/>";
-                    tag += "<input type='hidden' class='end_date' value='" + dto.end_date + "'/>";
-                    tag += "<div class='plan_item'>" + dto.plan_name + "</div>";
-                    tag += "<div class='plan_item'>" + dto.start_date + " - " + dto.end_date + "</div>";
-                    tag += "<div class='plan_item planChoose'>선택</div>";
-                    $(planEl).append(tag);
-                    $("#planListBody").append(planEl);
-                })
-            }
         })
+        $("#bookPlan").click(function(){
+            $(this).css("color", "whitesmoke");
+            $(this).css("background-color", "#F37321");
+            $("#myPlan").css("color", "#082032");
+            $("#myPlan").css("background-color", "#d9d9d9");
+            $.ajax({
+                url: 'bookPlanList',
+                type: 'POST',
+                success: function (result) {
+                    let target = 'bookPlan';
+                    showPlanList(result, target)
+                }, error: function (e) {
+                    console.log(e.responseText)
+                }
+            })
+        })
+        function showPlanList(data, target) {
+            $("#planListBody").html("");
+            $(data).each(function (i, dto) {
+                let planEl = document.createElement("div"),
+                    tag = "";
+                planEl.className = "plan_container";
+                tag += "<input type='hidden' class='plan_no' value='" + dto.plan_no + "'/>";
+                tag += "<input type='hidden' class='days' value='" + dto.days + "'/>";
+                tag += "<input type='hidden' class='plan_name' value='" + dto.plan_name + "'/>";
+                tag += "<input type='hidden' class='start_date' value='" + dto.start_date + "'/>";
+                tag += "<input type='hidden' class='end_date' value='" + dto.end_date + "'/>";
+                if(target==='myPlan'){
+                    tag += "<div class='plan_item'>" + dto.plan_name + "</div>";
+                }else if(target==='bookPlan'){
+                    tag += "<div class='plan_item'>" +dto.book_name+"("+ dto.plan_name + ")</div>";
+                }
+
+                tag += "<div class='plan_item'>" + dto.start_date + " - " + dto.end_date + "</div>";
+                tag += "<div class='plan_item planChoose'>선택</div>";
+                $(planEl).append(tag);
+                $("#planListBody").append(planEl);
+            })
+        }
+
         $(document).on("click", ".planChoose", function () { //플랜을 선택하면
             let plan_no = $(this).siblings(".plan_no").val();
             days = $(this).siblings(".days").val();
@@ -628,6 +667,8 @@
 
     </div>
     <div id="planList">
+   		<div id="myPlan">내 플랜</div>
+       	<div id="bookPlan">북마크</div>
         <div id="planListBody">
         </div>
     </div>

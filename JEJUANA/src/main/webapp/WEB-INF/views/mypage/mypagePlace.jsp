@@ -43,7 +43,7 @@ $(function(){
 			<input type="checkbox" id="allCheckC"/> 전체선택
 		 </div>
 		<div class="container_flex">
-			<c:forEach var="list" items="${list }">
+			<c:forEach var="list" items="${list }" varStatus="status">
 			<div class="courseBookmark">
 				<ul>
 					<li>
@@ -51,7 +51,7 @@ $(function(){
 						<div class="chooseDel1_txt">선택</div>
 					</li>
 					<li>
-						<img src="/jejuana/img/places/1.jpg"/>
+						<img src="/jejuana/img/${img[status.index]}.jpg"/>
 					</li>
 					<li style="font-weight:bold;">${list.book_name }</li>
 					<li>
@@ -93,7 +93,7 @@ $(function(){
 				</c:if>
 				<c:if test="${vo.nowPage>1 }">
 					<li>
-						<a href="mypagePlan?nowPage=${vo.nowPage-1 }">
+						<a href="mypagePlace?nowPage=${vo.nowPage-1 }">
 							<i class="fa-solid fa-angle-left"></i>
 						</a>
 					</li>
@@ -108,7 +108,7 @@ $(function(){
 						<c:if test="${p!=vo.nowPage }">
 							<li>
 						</c:if>
-						<a href="mypagePlan?nowPage=${p }">${p }</a></li>
+						<a href="mypagePlace?nowPage=${p }">${p }</a></li>
 					</c:if>
 				</c:forEach>
 			
@@ -116,7 +116,7 @@ $(function(){
 			<!-- 다음 페이지가 있을 때 -->
 			<c:if test="${vo.nowPage<vo.totalPage }">
 				<li>
-					<a href="mypagePlan?nowPage=${vo.nowPage+1 }">
+					<a href="mypagePlace?nowPage=${vo.nowPage+1 }">
 					
 						<!-- fontawesome오른쪽 화살표 -->
 						<i class="fa-solid fa-chevron-right"></i>
