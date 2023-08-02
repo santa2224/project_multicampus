@@ -7,5 +7,5 @@
   <img src="https://img.shields.io/badge/JQuery-0769AD?style=flat&logo=jQuery&logoColor=white"/>
   <img src="https://img.shields.io/badge/JSP-004027?style=flat&logo=Jameson&logoColor=white"/>
   <img src="https://img.shields.io/badge/Spring-6DB33F?style=flat&logo=Simkl&logoColor=white"/>
-  <img src="https://img.shields.io/badge/Springboot-#6DB33F?style=for-the-badge&logo=Spring Boot&logoColor=white">
+  <img src="https://img.shields.io/badge/springboot-#6DB33F?style=for-the-badge&logo=Spring Boot&logoColor=white">
  </div>
